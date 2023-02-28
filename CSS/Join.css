@@ -30,7 +30,7 @@ body {
       display: none;
   }
   button {
-    background-color: #fc6e51;
+    background-color: #42b574;
     color: #f8f8f8;
     cursor: pointer;
     border: none;
@@ -46,7 +46,7 @@ body {
   
   button:hover {
     outline: 0px solid;
-    background-color: #fc6e51;
+    background-color: #919191;
   }
   
   #title{
@@ -78,7 +78,7 @@ body {
   }
   
   .box:focus {
-    outline: 1px solid #fc6e51;
+    outline: 1px solid #42b574;
   }
   
   /* error msg */
