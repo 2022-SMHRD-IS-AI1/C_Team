@@ -20,24 +20,24 @@ def file_upload(): #Service 메서드
 
         # data라는 이름의 데이터 가져오기
         # {'data': '123'} 
-        print( dict(request.form)['data'] )
+        # print( dict(request.form)['data'] )
 
 
         f = request.files['file'] # multipart/form-data 형식의 파일 가져오기
         f.save(secure_filename(f.filename)) # file 저장
-        return """
-            {
-                "data" : "123"
-            }
-        """ # return 문자열 == 응답내용, 기본형식은 text/html --> REST API / JSON 형식으로 데이터 제공
+      #  return """
+      #      {
+      #          "data" : "123"
+      #      }
+      #  """ # return 문자열 == 응답내용, 기본형식은 text/html --> REST API / JSON 형식으로 데이터 제공
      
     else: # GET 방식 요청
         # data라는 이름의 데이터 가져오기
         # {'data': '123'} 
-        try:
-            print( dict(request.args)['data'] )
-        except:
-            print("error")
+    #    try:
+     #       print( dict(request.args)['data'] )
+      #  except:
+       #     print("error")
 
         return render_template('file_upload.html') # file_upload.html 을 응답
     
