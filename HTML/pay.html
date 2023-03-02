@@ -10,7 +10,6 @@
 
   <script>
 
-  var bolder = sessionStorage.getItem("bolder");
   
     clientKey = 'test_ck_5GePWvyJnrKaj1AD7o13gLzN97Eo'
     tossPayments = TossPayments(clientKey) 
@@ -25,6 +24,7 @@
     	})
     	.catch(function (error) {
     	  if (error.code === 'USER_CANCEL') {
+            location.href = "Price.html"
     	  } else if (error.code === 'INVALID_CARD_COMPANY') {
     	  }
     	})
