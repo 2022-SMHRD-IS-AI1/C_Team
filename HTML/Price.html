@@ -36,8 +36,8 @@
             <div id="navigation" >
               <ul>
                 <li class="active"><a href="Price.html" title="Home" class="animsition-link">price</a></li>
-                <li><a href="Main.html" title="Image Alignment" class="animsition-link">Drive</a></li>
-                <li><a href="login.html" title="Style guide" class="animsition-link">Login/Join</a></li>
+                <li><a href="dirve.html" title="Image Alignment" class="animsition-link">Drive</a></li>
+                <li><a href = "#" title="Style guide"  class="btn-open-popup">Login/Join</a></li>
               </ul>
             </div>
           </div>
@@ -134,6 +134,37 @@
   </div>
 </div>
 
+<div class="modal">
+  <div class="modalcontainer">
+    <div class="content">
+      <header class="modalheader">
+        <div id="title">
+          <h2>로그인</h2>
+        </div>
+      </header>
+      <form action="Login_Service" method="post">
+        <section class="modalsection">
+          <div class="info" id="info__id">
+            <div id="id-input">
+              <input name="id" class="box" type="text"
+                placeholder="아이디를 입력해주세요." required="required" />
+            </div>
+          </div>
+          <div class="info" id="info__pw">
+            <input name="pw" class="box" type="password"
+              placeholder="비밀번호를 입력해주세요." required="required" />
+          </div>
+        </section>
+        <div id="sec_bot">
+          <button class="loginbutton" id="submit">로그인</button>
+          <div class="exist" text-align="right">
+            <span>아이디가 없으신가요?</span> <a href="Join.html">회원가입 하러가기</a>
+          </div>
+      </form>
+    </div>
+  </div>
+  </div>
+
 <!-- /.tiny-footer --> 
 <!-- back to top icon --> 
 <a href="#0" class="cd-top" title="Go to top">Top</a> 
@@ -151,5 +182,29 @@
 <script type="text/javascript" src="../js/sticky-header.js"></script> 
 <!-- Back to top script --> 
 <script src="../js/back-to-top.js" type="text/javascript"></script>
+<script>
+
+  const modal = document.querySelector('.modal');
+   const btnOpenPopup = document.querySelector('.btn-open-popup');
+  
+     btnOpenPopup.addEventListener('click', () => {
+     modal.style.display = 'block';} );
+  
+  
+     modal.addEventListener("click", e => {
+      const evTarget = e.target
+      if(evTarget.classList.contains("modal")) {
+          modal.style.display = "none"
+      }
+  })
+  
+  
+  window.addEventListener("keyup", e => {
+      if(modal.style.display === "block" && e.key === "Escape") {
+          modal.style.display = "none"
+      }
+  })
+   
+  </script>
 </body>
 </html>
