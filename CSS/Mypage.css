@@ -1,0 +1,94 @@
+#main_container{
+    margin-top: 30px;
+}
+
+#sub_c{
+    width: 10%;
+    background-color: #42b574;
+    color: #f8f8f8;
+    cursor: pointer;
+    border: none;
+    box-sizing: border-box;
+    font-weight: 400;
+    border-radius: 25px;
+    
+}
+
+.sub_input{
+    margin: 20px;
+    
+}
+
+#sub_c:hover{
+    outline: 0px solid;
+    background-color: #919191;
+}
+
+#all_field{
+    text-align: center;
+    margin: 50px;
+    margin-top: 0;
+    border: 3px solid #d9d6d6;
+    border-radius: 20px;
+    box-shadow: 1px 1px 12px rgb(0 0 0 / 10%);
+}
+
+.input_info{
+    border: 2px solid #d9d6d6;
+    border-radius: 10px;
+    width: 300px;
+    height: 50px;
+    margin-right: 30px;
+}
+
+.input_info:focus{
+    outline: 1px solid #42b574;
+}
+
+#pw_i{
+    margin-right: 47px;
+}
+
+#pw_c_i{
+    margin-right:78px
+}
+
+.test_input{
+    text-align: center;
+}
+
+
+#h2_id{
+    margin-left: 50px;
+}
+
+#basic_info h3{
+    margin: 10px 0;
+    text-align: center;
+}
+
+#info_c{
+    width: 20%;
+    height: 45px;
+    font-size: 15px;
+    margin: auto;
+    background-color: #42b574;
+    color: #f8f8f8;
+    cursor: pointer;
+    border: none;
+    box-sizing: border-box;
+    font-weight: 400;
+    border-radius: 25px;
+}
+
+#info_c:hover {
+    outline: 0px solid;
+    background-color: #919191;
+  }
+
+  .div_input{
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 20px;
+
+  }

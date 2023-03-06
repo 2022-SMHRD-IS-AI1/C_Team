@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../CSS/admin_edit.css">
+    <title>Document</title>
+</head>
+<body>
+    <nav id="nav1">
+		<ul>
+			<li><a href="admin.html">회원 정보</a></li>
+		</ul>
+	</nav>
+	<hr>
+    
+    <div class="board_wrap">
+		<div class="board_title">
+			<strong>관리자 테이블 - 회원 생성</strong>
+		</div>
+		<div class="board_list_wrap">
+			<form action="board_Service" method="post">
+				<div class="board_write">
+					<div class="y_title">
+						<dl>
+							<dt>회원 번호</dt>
+							<dd>
+								<input type="text" name="b_title" placeholder="회원번호 입력" value="1" required="required">
+							</dd>
+						</dl>
+                        <dl>
+							<dt>회원 아이디</dt>
+							<dd>
+								<input type="text" name="b_title" placeholder="회원 아이디 입력" value="leeyunjea@naver.com" required="required">
+							</dd>
+						</dl>
+                        <dl>
+							<dt>회원 비밀번호</dt>
+							<dd>
+								<input type="text" name="b_title" placeholder="회원 비밀번호 입력" value="password1234" required="required">
+							</dd>
+						</dl>
+						<dl>
+							<dt>구독 종류</dt>
+							<dd>
+								<input type="text" name="b_title" placeholder="구독 종류 입력">
+							</dd>
+						</dl>
+						<dl>
+							<dt>구독 가격</dt>
+							<dd>
+								<input type="text" name="b_title" placeholder="구독 가격 입력">
+							</dd>
+						</dl>
+                        <dl>
+							<dt>구독 가입일</dt>
+							<dd>
+								<input type="date" name="b_title" value="2023-02-28">
+							</dd>
+						</dl>
+                        <dl>
+							<dt>구독 만료일</dt>
+							<dd>
+								<input type="date" name="b_title" value="2023-04-01">
+							</dd>
+						</dl>
+					</div>
+				</div>
+				<div class="bt_wrap">
+					<!-- <input type="submit" class = "board_input" value = "등록"> -->
+					<a href="admin.html" class="on">수정완료</a> 
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+</html>
