@@ -63,11 +63,10 @@ def login_service():
     
     result = user.login(id, pw)
 
-    if result == 1:
+    if len(result) > 0:
         print("로그인에 성공하셨습니다.")
-        
         return redirect(url_for('main'))
-    elif result == 0:
+    else:
         print("로그인이 실패했습니다.")
         return redirect(url_for('login'))
 
@@ -82,10 +81,10 @@ def join_service():
     
     result = user.join(id, pw)
 
-    if result == 1:
+    if result:
         print("회원가입에 성공하셨습니다.")
         return redirect(url_for('login'))
-    elif result == 0:
+    else:
         print("회원가입이 실패했습니다.")
         return redirect(url_for('join'))
     
