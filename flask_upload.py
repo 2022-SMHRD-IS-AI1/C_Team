@@ -15,13 +15,13 @@ def home_page():
 # 파일 리스트
 @app.route('/list')
 def list_page():
-	file_list = os.listdir("./uploads")
-	html = """<center><a href="/">홈페이지</a><br><br>""" 
+	file_list = os.listdir("./upload")
+	html = """<center><a href="/">홈 화면으로 이동</a><br><br>""" 
 	html += "file_list: {}".format(file_list) + "</center>"
 	return html
 
 #업로드 HTML 렌더링
-@app.route('/upload')
+@app.route('/upload.html')
 def upload_page():
 	return render_template('upload.html')
 
@@ -31,9 +31,9 @@ def upload_file():
 	if request.method == 'POST':
 		f = request.files['file']
 		#저장할 경로 + 파일명
-		f.save('./uploads/' + secure_filename(f.filename))
+		f.save('./upload/' + secure_filename(f.filename))
 		return render_template('check.html')
 
 #서버 실행
 if __name__ == '__main__':
-	app.run(host='0.0.0.0', port="5500", debug = True)
+	app.run(host='0.0.0.0', port="9999", debug = True)
