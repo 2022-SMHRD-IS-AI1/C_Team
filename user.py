@@ -25,8 +25,6 @@ def join(id, pw):
         
     return result
 
-
-
 def login(id, pw):
     import cx_Oracle
     from flask import session
@@ -38,18 +36,22 @@ def login(id, pw):
     result = 0
     try:
      
-        cursor.execute("SELECT * FROM c_user WHERE user_mail = (:1) AND user_pw = (:2)",[id,pw])
+       print(id, pw)
+       cursor.execute("SELECT * FROM c_user WHERE user_mail = :1 AND user_pw = :2", [id, pw])
  
-        data = cursor.fetchall()
+       data = cursor.fetchall()
        
-        if data:
-            session['login_user'] = id
-        else:
-            print('invalid input data detected !')
-        result = 1
+       if data != 0:
+           result = 1
+        #    session['login_user'] = id
+        
+       else:
+           print('invalid input data detected !')
+       
     except:
         result = 0
     finally:
         cursor.close()
         con.close()
     return result
+

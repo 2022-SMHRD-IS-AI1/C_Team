@@ -43,11 +43,6 @@ def price():
 
 
 
-
-
-
-
-
     
 @app.route('/')
 def default():
@@ -70,11 +65,11 @@ def login_service():
 
     if result == 1:
         print("로그인에 성공하셨습니다.")
+        
         return redirect(url_for('main'))
     elif result == 0:
         print("로그인이 실패했습니다.")
         return redirect(url_for('login'))
-
 
 @app.route('/join.html', methods = ['GET','POST'])
 def join():
