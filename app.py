@@ -1,11 +1,11 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
 import user
 #import os
 #from werkzeug.utils import secure_filename
 
 
 app = Flask(__name__)
-
+app.secret_key = 'qwer1234'
 
 # @app.route('/multiFileUploads', methods = ['POST'])
 # def multi_upload_file():
@@ -65,6 +65,8 @@ def login_service():
 
     if len(result) > 0:
         print("로그인에 성공하셨습니다.")
+        session['user_info'] = result
+        print(session['user_info'])
         return redirect(url_for('main'))
     else:
         print("로그인이 실패했습니다.")

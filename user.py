@@ -55,4 +55,4 @@ def login(id, pw):
         con.close()
     return result
 
-#print(login('admin', 'admin'))
+print(login('admin', 'admin'))
