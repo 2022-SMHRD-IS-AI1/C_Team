@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
-import db
+import user
 #import os
 #from werkzeug.utils import secure_filename
 
@@ -39,43 +39,53 @@ def price():
     except:
         print('price 오류발생!')
 
-@app.route('/mypage.html', methods = ['GET','POST'])
-def mypage():
-    try:
-        return render_template('Mypage.html')
-    except:
-        print('mypage 오류발생!')
 
-@app.route('/login.html', methods = ['GET','POST'])
-def login():
-    try:
-        return render_template('login.html')
-    except:
-        print('login 오류발생!')
 
-@app.route('/join.html', methods = ['GET','POST'])
-def join():
-    try:
-        return render_template('join.html')
-    except:
-        print('join 오류발생!')
 
-@app.route('/Join_Service', methods = ['POST'])
-def join_service():
-    try:
-        db.register()
-        
-        return join.register()
-    except:
-        print('join 오류발생!')
+
+
+
+
+
+
+    
+@app.route('/')
+def default():
+    return redirect(url_for('main'))
 
 @app.route('/main.html', methods = ['GET','POST'])
 def main():
-    try:
-        return render_template('Main.html')
-    except:
-        print("main 오류발생!")
+    return render_template('main.html')
+
+@app.route('/login.html', methods = ['GET','POST'])
+def login():
+    return render_template('login.html')
+
+@app.route('/login_service', methods = ['GET','POST'])
+def login_service():
+    return render_template('login.html')
+
+@app.route('/join.html', methods = ['GET','POST'])
+def join():
+    return render_template('join.html')
+
+@app.route('/join_service', methods = ['GET','POST'])
+def join_service():
+    id = request.form['id'] 
+    pw = request.form['pw']
     
+    result = user.join(id, pw)
+
+    if result == 1:
+        print("회원가입에 성공하셨습니다.")
+        return redirect(url_for('login'))
+    elif result == 0:
+        print("회원가입이 실패했습니다.")
+        return redirect(url_for('join'))
+    
+@app.route('/mypage.html', methods = ['GET','POST'])
+def mypage():
+    return render_template('mypage.html')
 
 if __name__ == '__main__':
     app.run(port="9999")
