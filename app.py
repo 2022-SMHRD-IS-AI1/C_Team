@@ -18,10 +18,13 @@ app = Flask(__name__)
     
 @app.route('/', methods = ['GET', 'POST'])
 def main():
-    if request.method == 'GET':
-        return render_template('Main.html')
-    elif request.method == 'POST':
-        return "POST"
+    try:
+        if request.method == 'GET':
+            return render_template('Main.html')
+    except:
+        print("오류발생!")
+    
+    
 
 if __name__ == '__main__':
     app.run(port="9999", debug = True)
