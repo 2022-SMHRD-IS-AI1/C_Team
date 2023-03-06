@@ -50,7 +50,7 @@ def register():
 
     if request.method == 'POST':
       
-        id = request.form['regi_id']
+        id = request.form['regi_id'] 
         pw = request.form['regi_pw']
         user_admin = 'N'
         price_type = 'A'
