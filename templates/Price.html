@@ -9,7 +9,7 @@
 <meta name="keywords" content="bootstrap template, Responsive Template, Website Template, free website templates, free website template download ">
 <title>C:/</title>
 <!-- Bootstrap -->
-<link href="{{ url_for('static', filename='CSS/bootstrap.min.css') }}" rel="stylesheet">
+<link href="../CSS/bootstrap.min.css" rel="stylesheet">
 <!-- style css -->
 <link rel="stylesheet" type="text/css" href="../CSS/style.css">
 <!-- animsition css -->
@@ -37,8 +37,7 @@
               <ul>
                 <li class="active"><a href="Price.html" title="Home" class="animsition-link">price</a></li>
                 <li><a href="dirve.html" title="Image Alignment" class="animsition-link">Drive</a></li>
-                <li><a href = "#" title="Style guide"  class="btn-open-popup">Login/Join</a></li>
-                <li><a href = "Mypage.html" title="Style guide" >My page</a></li>
+                <li><a href = "#" title="Style guide"  class="btn-open-popup" >Login/Join</a></li>
               </ul>
             </div>
           </div>
@@ -49,116 +48,43 @@
   <!-- /.navigation -->
   <div class="container">
     <div class="row">
-      <div class="col-md-offset-2 col-md-8">
-        <div class="hero-caption"><!-- hero caption -->
-          <h1 class="hero-title">FILE 분류기</h1>
-          <p>단 몇번의 클릭만으로 파일을 분류할 수 있습니다</p>
-         <label for="file">
-          <div class="btn btn-default">Add File</div> 
-          </label>
-          <input type="file" name = "file" id="file"  />
+      <div class="col-md-12 text-center">
+        <div class="page-caption">
+          <h1 class="page-title">Price - Subscribe</h1>
         </div>
       </div>
     </div>
   </div>
 </div>
-<!-- /.slider -->
-<div class="section-space80"><!-- section space80 -->
+<!-- /.page header -->
+<div class="main-container"><!-- main container -->
   <div class="container">
     <div class="row">
-      <div class="col-md-12">
-        <div class="section-title mb80 text-center"><!-- section-title -->
-          <h1>C:/ 사용설명 가이드</h1>
-          <p>정돈되지 못한 파일들의 분류를 자동으로 제공합니다</p>
-        </div>
-        <!-- /.section-title --> 
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-3">
-        <div class="feature mb30"><!-- feature -->
-        <div class="feature-icon mb20"><i class="fa fa-lightbulb-o"></i></div>
-          <h3>파일 업로드</h3>
-          <p>파일 및 폴더를 컴퓨터에서 사이트에 파일을 추가하면 자동으로 업로드됩니다.</p>
-        </div>
-        <!-- /.feature --> 
-      </div>
-      <div class="col-md-3">
-        <div class="feature mb30"><!-- feature -->
-        <div class="feature-icon mb20"><i class="fa fa-gear "></i></div>
-          <h3>기준파일 선택</h3>
-          <p>업로드 시킨 파일 중 파일분류의 기준이 되는 하나의 파일을 선택합니다.</p>
-        </div>
-        <!-- /.feature --> 
-      </div>
-      <div class="col-md-3">
-        <div class=" feature mb30"><!-- feature -->
-        <div class="feature-icon mb20"><i class="fa fa-thumbs-up"></i></div>
-          <h3>파일정리</h3>
-          <p>이전 단계에서 선택된 기준파일을 중심으로 파일의 분류가 진행됩니다.</p>
-        </div>
-        <!-- /.feature --> 
-      </div>
-      <div class="col-md-3">
-        <div class="feature"><!-- feature -->
-        <div class="feature-icon mb20"><i class="fa fa-paper-plane-o"></i></div>
-          <h3>저장하기</h3>
-          <p>분류가 완료된 파일 및 폴더는 My Drive에 저장하거나 압축파일로 다운로드 받을 수 있습니다.</p>
-        </div>
-        <!-- /.feature --> 
-      </div>
+      <div class="col-md-12"> 
+       
+        <img src="../images/baisic.jpg" alt="" class="alignleft img-responsive">
+        <h2>Basic</h2>
+        <p >회원가입시 기본으로 제공되는 구독서비스입니다.</p>
+        <p >드라이브 제공용량 : </p>
+        <p style="margin-bottom: 250px;">용량제한있나? </p>
+        
+        <img src="../images/pro.jpg" alt="" class="alignleft img-responsive">
+        <h2 >Pro</h2>
+        <a href="pay.html"><button type="button" class="btn btn-primary btn-sm" style="margin-bottom: 10px">Pro구독하기</button></a>
+        <p >프로구독 서비스입니다.</p>
+        <p >드라이브 제공용량 : </p>
+        <p style="margin-bottom: 220px;">월 요금 : 19900원</p>
+        
+        <img src="../images/custom.jpg" alt="" class="alignleft img-responsive">
+        <h2>Custom</h2>
+        <button type="button" class="btn btn-primary btn-sm" style="margin-bottom: 10px" onclick="location.href='requiry.html'">문의하기</button>
+        <p >사용자의 요청에 따라 달라질 수 있습니다.</p>
+        <p >드라이브 제공용량 : custom</p>
+        <p style="margin-bottom: 250px;">기업에 문의주시기 바랍니다.</p>
     </div>
   </div>
 </div>
-
-<!-- /.section-space80 -->
-<div class="section-space80"><!-- section-space80 -->
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="section-title mb60 text-center"><!-- section title -->
-          <h1>구독서비스 가이드</h1>
-          <p>구독 서비스 가입으로 효율성을 더 높여보세요</p>
-        </div>
-        <!-- /.section title --> 
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-4">
-        <div class="thumbnail-block mb30"><!-- thumbnail block -->
-          <div class="thumbnail-img"><a href="Price.html"><img src="../images/baisic.jpg" class="img-responsive2" alt=""></a></div>
-          <div class="thumbnail-content pinside30 outline">
-            <h3><a href="Price.html" class="heading-title">Basic</a></h3>
-            <p>기본으로 제공</p>
-          
-          </div>
-        </div>
-        <!-- /.thumbnail block --> 
-      </div>
-      <div class="col-md-4">
-        <div class="thumbnail-block mb30"><!-- thumbnail block -->
-          <div class="thumbnail-img"><a href="Price.html"><img src="../images/pro.jpg" class="img-responsive2" alt=""></a></div>
-          <div class="thumbnail-content pinside30 outline">
-            <h3><a href="Price.html" class="heading-title">Pro</a></h3>
-            <p>월 19900원</p>
-          </div>
-        </div>
-        <!-- /.thumbnail block --> 
-      </div>
-      <div class="col-md-4">
-        <div class="thumbnail-block mb30"><!-- thumbnail block -->
-          <div class="thumbnail-img"><a href="Price.html"><img src="../images/custom.jpg" class="img-responsive2" alt=""></a></div>
-          <div class="thumbnail-content pinside30 outline">
-            <h3><a href="Price.html" class="heading-title">Custom</a></h3>
-            <p>기업에 문의 하세요</p>
-          </div>
-        </div>
-        <!-- /.thumbnail block --> 
-      </div>
-    </div>
-  </div>
-</div>
-<!-- /.section-space80 -->
+<!-- /.main container -->
 <div class="footer section-space60"> 
   <!-- footer -->
   <div class="container">
@@ -238,8 +164,9 @@
     </div>
   </div>
   </div>
+ 
 
-</div>
+
 
 <!-- /.tiny-footer --> 
 <!-- back to top icon --> 
@@ -260,28 +187,27 @@
 <script src="../js/back-to-top.js" type="text/javascript"></script>
 <script>
 
-const modal = document.querySelector('.modal');
- const btnOpenPopup = document.querySelector('.btn-open-popup');
+  const modal = document.querySelector('.modal');
+  const btnOpenPopup = document.querySelector('.btn-open-popup');
+   
+     btnOpenPopup.addEventListener('click', () => {
+     modal.style.display = 'block';
+    });
+    
+     modal.addEventListener("click", e => {
+      const evTarget = e.target
+      if(evTarget.classList.contains("modal")) {
+          modal.style.display = "none"
+      }
+  })
 
-   btnOpenPopup.addEventListener('click', () => {
-   modal.style.display = 'block';} );
-
-
-   modal.addEventListener("click", e => {
-    const evTarget = e.target
-    if(evTarget.classList.contains("modal")) {
-        modal.style.display = "none"
-    }
-})
-
-
-window.addEventListener("keyup", e => {
-    if(modal.style.display === "block" && e.key === "Escape") {
-        modal.style.display = "none"
-    }
-})
+  window.addEventListener("keyup", e => {
+      if(modal.style.display === "block" && e.key === "Escape") {
+          modal.style.display = "none"
+      }
+  })
+  </script>
  
-</script>
+
 </body>
 </html>
-
