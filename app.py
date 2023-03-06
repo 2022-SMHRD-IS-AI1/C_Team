@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 #import os
 #from werkzeug.utils import secure_filename
 
@@ -15,15 +15,56 @@ app = Flask(__name__)
 #             return '파일 저장 완료'
 #     else:
 #         return render_template('check.html')
-    
-@app.route('/', methods = ['GET', 'POST'])
+
+
+@app.route('/requiry.html', methods = ['GET','POST'])
+def requiry():
+    try:
+        return render_template('requiry.html')
+    except:
+        print('requiry 오류발생!')
+
+@app.route('/pay.html', methods = ['GET','POST'])
+def pay():
+    try:
+        return render_template('pay.html')
+    except:
+        print('pay 오류발생!')
+
+@app.route('/price.html', methods = ['GET','POST'])
+def price():
+    try:
+        return render_template('Price.html')
+    except:
+        print('price 오류발생!')
+
+@app.route('/mypage.html', methods = ['GET','POST'])
+def mypage():
+    try:
+        return render_template('Mypage.html')
+    except:
+        print('mypage 오류발생!')
+
+@app.route('/login.html', methods = ['GET','POST'])
+def login():
+    try:
+        return render_template('login.html')
+    except:
+        print('login 오류발생!')
+
+@app.route('/join.html', methods = ['GET','POST'])
+def join():
+    try:
+        return render_template('Join.html')
+    except:
+        print('join 오류발생!')
+
+@app.route('/main.html', methods = ['GET','POST'])
 def main():
     try:
-        if request.method == 'GET':
-            return render_template('Main.html')
+        return render_template('Main.html')
     except:
-        print("오류발생!")
-    
+        print("main 오류발생!")
     
 
 if __name__ == '__main__':
