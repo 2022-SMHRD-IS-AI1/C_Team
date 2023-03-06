@@ -56,7 +56,7 @@ def login():
 @app.route('/join.html', methods = ['GET','POST'])
 def join():
     try:
-        return render_template('Join.html')
+        return render_template('join.html')
     except:
         print('join 오류발생!')
 

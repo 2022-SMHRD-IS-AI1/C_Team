@@ -42,9 +42,9 @@ def main():
             return redirect(url_for('home2.html'))
         else:
             print('invalid input data detected !')
-    return render_template('main.html')
+    return render_template('login.html')
 
-@app.route('/register.html', methods=['GET', 'POST'])
+@app.route('/join.html', methods=['GET', 'POST'])
 def register():
     
 
@@ -63,8 +63,8 @@ def register():
  
         cursor.close()
         #con.close()
-        return render_template('Main.html')
-    return render_template('Join.html')
+        return render_template('main.html')
+    return render_template('join.html')
  
 @app.route('/home2.html', methods=['GET', 'POST'])
 def home():

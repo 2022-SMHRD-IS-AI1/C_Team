@@ -30,5 +30,5 @@ def register():
  
         cursor.close()
         con.close()
-        return render_template('Main.html')
+        return render_template('main.html')
     return render_template('join.html')
