@@ -18,35 +18,35 @@ app = Flask(__name__)
 
 
 @app.route('/requiry.html', methods = ['GET','POST'])
-def join():
+def requiry():
     try:
         return render_template('requiry.html')
     except:
         print('requiry 오류발생!')
 
-# @app.route('/pay.html', methods = ['GET','POST'])
-# def join():
-#     try:
-#         return render_template('pay.html')
-#     except:
-#         print('pay 오류발생!')
+@app.route('/pay.html', methods = ['GET','POST'])
+def pay():
+    try:
+        return render_template('pay.html')
+    except:
+        print('pay 오류발생!')
 
 @app.route('/price.html', methods = ['GET','POST'])
-def join():
+def price():
     try:
         return render_template('Price.html')
     except:
         print('price 오류발생!')
 
 @app.route('/mypage.html', methods = ['GET','POST'])
-def join():
+def mypage():
     try:
         return render_template('Mypage.html')
     except:
         print('mypage 오류발생!')
 
 @app.route('/login.html', methods = ['GET','POST'])
-def join():
+def login():
     try:
         return render_template('login.html')
     except:
@@ -65,14 +65,6 @@ def main():
         return render_template('Main.html')
     except:
         print("main 오류발생!")
-
-@app.route('/', methods = ['GET','POST'])
-def join():
-    try:
-        return redirect(url_for('main.html'))
-    except:
-        print('/ 오류발생!')
-
     
 
 if __name__ == '__main__':
