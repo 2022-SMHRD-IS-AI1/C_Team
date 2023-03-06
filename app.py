@@ -4,18 +4,6 @@ from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 
-@app.route('/')
-def main():
-    return render_template('main.html')
-
-@app.route('/join.html')
-def join():
-    return render_template('join.html')
-
-@app.route('joinservece')
-def joinservice():
-    
-
 
 @app.route('/multiFileUploads', methods = ['POST'])
 def multi_upload_file():
