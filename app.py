@@ -63,7 +63,18 @@ def login():
 
 @app.route('/login_service', methods = ['GET','POST'])
 def login_service():
-    return render_template('login.html')
+    id = request.form['id'] 
+    pw = request.form['pw']
+    
+    result = user.login(id, pw)
+
+    if result == 1:
+        print("로그인에 성공하셨습니다.")
+        return redirect(url_for('main'))
+    elif result == 0:
+        print("로그인이 실패했습니다.")
+        return redirect(url_for('login'))
+
 
 @app.route('/join.html', methods = ['GET','POST'])
 def join():
