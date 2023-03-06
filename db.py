@@ -50,8 +50,8 @@ def register():
 
     if request.method == 'POST':
       
-        id = request.form['regi_id'] 
-        pw = request.form['regi_pw']
+        id = request.form['id'] 
+        pw = request.form['pw']
         user_admin = 'N'
         price_type = 'A'
        
@@ -63,8 +63,8 @@ def register():
  
         cursor.close()
         #con.close()
-        return render_template('main.html')
-    return render_template('register.html')
+        return render_template('Main.html')
+    return render_template('Join.html')
  
 @app.route('/home2.html', methods=['GET', 'POST'])
 def home():

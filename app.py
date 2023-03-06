@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
+import db
 #import os
 #from werkzeug.utils import secure_filename
 
@@ -59,6 +60,15 @@ def join():
     except:
         print('join 오류발생!')
 
+@app.route('/Join_Service', methods = ['POST'])
+def join_service():
+    try:
+        db.register()
+        
+        return join.register()
+    except:
+        print('join 오류발생!')
+
 @app.route('/main.html', methods = ['GET','POST'])
 def main():
     try:
@@ -68,4 +78,4 @@ def main():
     
 
 if __name__ == '__main__':
-    app.run(port="9999", debug = True)
+    app.run(port="9999")
