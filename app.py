@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 import user
+import socket
 #import os
 #from werkzeug.utils import secure_filename
 
@@ -95,4 +96,4 @@ def mypage():
     return render_template('mypage.html')
 
 if __name__ == '__main__':
-    app.run(port="9999")
+    app.run(host = socket.gethostbyname(socket.gethostname()), port="9999")

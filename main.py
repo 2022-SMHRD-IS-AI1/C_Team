@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request
 from werkzeug.utils import secure_filename
-import socket
 
 # 터미널에서 python 파일 실행하기
 # 1. cd : 폴더 이동
