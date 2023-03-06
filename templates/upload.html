@@ -2,24 +2,24 @@
 <meta charset="UTF-8">
 <html>
   <head>
-    <title>pyftp</title>
+    <title>Upload Page</title>
   </head>
 
   <body>
     <center><h1>Upload Page</h1></center>
-    <center><a href="/">홈페이지</a><br><center>
+    <center><a href="home.html">홈 화면으로 가기</a><br><center>
     <hr width="100%" color="black"/>
     <center><h3>Upload File!</h3></center>
     <hr width="100%" color="black"/>
 
-    <img src="{{ url_for('static',filename='images/upload.png') }}", width="100" 
+    <img src="../static/images/upload.png", width="100" 
         style="margin-left: auto; margin-right: auto; display: block;")/>
 
     <br><br><center>
-    <form action = "http://localhost:8080/fileUpload" method = "POST"
+    <form action = "file_upload" method = "POST"
          enctype = "multipart/form-data">
     <input type = "file" name = "file" />
-    <input type = "submit"/>
+    <input type = "submit" value="보내기"/>
     </form></center>
   </body>
 </html>
