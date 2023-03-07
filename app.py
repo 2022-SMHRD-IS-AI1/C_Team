@@ -73,6 +73,11 @@ def login_service():
         print("로그인이 실패했습니다.")
         return redirect(url_for('login'))
 
+@app.route('/logout', methods = ['GET','POST'])
+def logout():
+    session.pop('user_info', None)
+    return render_template('main.html')
+
 @app.route('/join.html', methods = ['GET','POST'])
 def join():
     return render_template('join.html')
