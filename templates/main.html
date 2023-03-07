@@ -37,7 +37,12 @@
               <ul>
                 <li class="active"><a href="price.html" title="Home" class="animsition-link">price</a></li>
                 <li><a href="drive.html" title="Image Alignment" class="animsition-link">Drive</a></li>
-                <li><a href = "#" title="Style guide"  class="btn-open-popup">Login/Join</a></li>
+            
+                 {%if user.is_authenticated}
+                  <li><a href = "#" title="Style guide"  class="btn-open-popup">Login/Join</a></li>
+                  {% else %}
+                  <li><a href = "#" title="Style guide"  class="btn-open-popup">Logout</a></li>
+                  {% endif %}
                 <li><a href = "mypage.html" title="Style guide" >My page</a></li>
               </ul>
             </div>
