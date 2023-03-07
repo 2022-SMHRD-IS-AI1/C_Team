@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session, flash
 import user
 import socket
 #import os
@@ -71,7 +71,8 @@ def login():
             return redirect(url_for('main'))
         else:
             print("로그인이 실패했습니다.")
-            return redirect(url_for('login'))
+            flash("로그인이 실패했습니다.")
+            return render_template('login.html')
     else:
         return render_template('login.html')
 
