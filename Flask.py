@@ -61,12 +61,9 @@ def main():
 @app.route('/login', methods = ['POST', 'GET'])
 def login():
     if request.method == 'POST':
-    
         id = request.form['id'] 
         pw = request.form['pw']
-
         result = user.login(id, pw)
-
         if len(result) > 0:
             print("로그인에 성공하셨습니다.")
             session['user_info'] = result
@@ -81,16 +78,14 @@ def login():
 @app.route('/logout', methods = ['GET','POST'])
 def logout():
     session.pop('user_info', None)
-    return redirect(url_for('main'))
+    return render_template('main.html')
 
 @app.route('/join', methods = ['GET','POST'])
 def join():
     if request.method == 'POST':
         id = request.form['id'] 
         pw = request.form['pw']
-    
         result = user.join(id, pw)
-
         if result:
             print("회원가입에 성공하셨습니다.")
             return redirect(url_for('login'))
@@ -100,7 +95,7 @@ def join():
     else:
         return render_template('join.html')
 
-@app.route('/mypage.html', methods = ['GET','POST'])
+@app.route('/mypage', methods = ['GET','POST'])
 def mypage():
     return render_template('mypage.html', user_id = session['user_info'][0])
 
