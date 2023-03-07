@@ -33,4 +33,4 @@ def upload_file():
 
 #서버 실행
 if __name__ == '__main__':
-	app.run(port=5500, debug = True)
+	app.run(port=9999, debug = True)
