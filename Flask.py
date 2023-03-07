@@ -81,7 +81,7 @@ def login():
 @app.route('/logout', methods = ['GET','POST'])
 def logout():
     session.pop('user_info', None)
-    return render_template('main.html')
+    return redirect(url_for('main'))
 
 @app.route('/join', methods = ['GET','POST'])
 def join():
