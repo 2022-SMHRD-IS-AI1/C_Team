@@ -26,14 +26,14 @@ def requiry():
     except:
         print('requiry 오류발생!')
 
-@app.route('/pay.html', methods = ['GET','POST'])
+@app.route('/pay', methods = ['GET','POST'])
 def pay():
     try:
         return render_template('pay.html')
     except:
         print('pay 오류발생!')
 
-@app.route('/price.html', methods = ['GET','POST'])
+@app.route('/price', methods = ['GET','POST'])
 def price():
     try:
         return render_template('Price.html')

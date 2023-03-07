@@ -45,5 +45,3 @@ def login(id, pw):
         cursor.close()
         con().close()
     return result
-
-print(login('admin', 'admin'))

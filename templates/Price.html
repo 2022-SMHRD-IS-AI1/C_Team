@@ -37,7 +37,12 @@
               <ul>
                 <li class="active"><a href="price.html" title="Home" class="animsition-link">price</a></li>
                 <li><a href="drive.html" title="Image Alignment" class="animsition-link">Drive</a></li>
-                <li><a href = "#" title="Style guide"  class="btn-open-popup" >Login/Join</a></li>
+                {% if not session["user_info"] %}
+                <li><a href = "#" title="Style guide"  class="btn-open-popup">Login/Join</a></li>
+                {% else %}
+                <li><a href = "logout" title="Style guide"  >Logout</a></li>
+                <li><a href = "mypage" title="Style guide" >My page</a></li>
+                {% endif %}
               </ul>
             </div>
           </div>
@@ -70,7 +75,7 @@
         
         <img src="{{ url_for('static', filename='images/pro.jpg') }}" alt="" class="alignleft img-responsive">
         <h2 >Pro</h2>
-        <a href="pay.html"><button type="button" class="btn btn-primary btn-sm" style="margin-bottom: 10px">Pro구독하기</button></a>
+        <a href="pay"><button type="button" class="btn btn-primary btn-sm" style="margin-bottom: 10px">Pro구독하기</button></a>
         <p >프로구독 서비스입니다.</p>
         <p >드라이브 제공용량 : </p>
         <p style="margin-bottom: 220px;">월 요금 : 19900원</p>
