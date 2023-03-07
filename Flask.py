@@ -52,9 +52,7 @@ def default():
 @app.route('/main', methods = ['GET','POST'])
 def main():
     if request.method == 'POST':
-        if 'user_info' in session:
-            id = session['user_info'][0]
-            return redirect(url_for('main'), id = id)
+        return render_template(('main.html'))
         
     else:
         return render_template('main.html')
