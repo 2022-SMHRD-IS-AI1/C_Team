@@ -49,9 +49,15 @@ def price():
 def default():
     return redirect(url_for('main'))
 
-@app.route('/main.html', methods = ['GET','POST'])
+@app.route('/main', methods = ['GET','POST'])
 def main():
-    return render_template('main.html')
+    if request.method == 'POST':
+        if 'user_info' in session:
+            id = session['user_info'][0]
+            return redirect(url_for('main'), id = id)
+        
+    else:
+        return render_template('main.html')
 
 
 @app.route('/login', methods = ['POST', 'GET'])
