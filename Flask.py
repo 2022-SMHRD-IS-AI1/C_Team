@@ -100,6 +100,10 @@ def join():
 def mypage():
     return render_template('mypage.html', user_id = session['user_info'][0])
 
+@app.route('/drive')
+def drive():
+    return render_template('drive.html')
+
 if __name__ == '__main__':
     app.run(host = socket.gethostbyname(socket.gethostname()), port="9999")
 
