@@ -1,22 +1,12 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 import user
 import socket
-#import os
+import os
 #from werkzeug.utils import secure_filename
 
 
 app = Flask(__name__)
 app.secret_key = 'qwer1234'
-
-# @app.route('/multiFileUploads', methods = ['POST'])
-# def multi_upload_file():
-#     if request.method == 'POST':
-#         upload = request.files.getlist("file[]")
-#         for f in upload:
-#             f.save('./uploads/' + secure_filename(f.filename))
-#             return '파일 저장 완료'
-#     else:
-#         return render_template('check.html')
 
 # 웹에서 requiry.html 호출 시 실행 함수 
 @app.route('/requiry.html', methods = ['GET','POST'])
@@ -58,8 +48,10 @@ def main():
         upload = request.files.getlist("filename[]")
         request.files
         print(upload)
+        user_id = session['user_info'][0]
+        os.makedirs(f'./uploads/{user_id}', exist_ok=True)
         for f in upload:
-            f.save('./uploads/' + f.filename)
+            f.save(f'./uploads/{user_id}/' + f.filename)
         return render_template('main.html') # 메인 페이지로 이동
     else: # get 방식일때 
         return render_template('main.html') # 메인 페이지로 이동
