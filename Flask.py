@@ -55,8 +55,12 @@ def default():
 @app.route('/main', methods = ['GET','POST']) # get, post
 def main():
     if request.method == 'POST': # post 방식일때
-        return render_template(('main.html')) # 메인 페이지로 이동
-        
+        upload = request.files.getlist("filename[]")
+        request.files
+        print(upload)
+        for f in upload:
+            f.save('./uploads/' + f.filename)
+        return render_template('main.html') # 메인 페이지로 이동
     else: # get 방식일때 
         return render_template('main.html') # 메인 페이지로 이동
 
