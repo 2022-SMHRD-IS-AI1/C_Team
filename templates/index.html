@@ -10,14 +10,16 @@
     <hr width="100%" color="black"/>
 
     <center>
-    <form>
+    <form action="multiFileUploads" method="POST">
     <img src="{{ url_for('static', filename='images/upload.png') }}", width="80" 
         style="margin-left: auto; margin-right: auto; display: block;"/>
-    <a href="./upload">파일 업로드</a><br><br><br>
+        <input type='file' name='' multiple/>
+        <input type="submit">
+    <a href="multiFileUploads">파일 업로드</a><br><br><br>
 
     <img src="{{ url_for('static', filename='images/list.png') }}", width="80" 
         style="margin-left: auto; margin-right: auto; display: block;"/>
-    <a href="./list">파일 목록</a><br><br><br>
+    <a href="list">파일 목록</a><br><br><br>
       
     </form>
     </center>
