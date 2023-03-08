@@ -88,6 +88,9 @@ def join(): # 회원가입 함수
         id = request.form['id'] # 입력된 id 값 담아주는 변수
         pw = request.form['pw'] # 입력된 pw 값 담아주는 변수
         result = user.join(id, pw) #user.py의 join 함수 불러와 저장 
+        #print('id :',id)
+        #print('pw :',pw)
+        print('result :', result)
         if result: # 가입 성공
             print("회원가입에 성공하셨습니다.")
             return redirect(url_for('login')) # login 호출
