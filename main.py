@@ -26,7 +26,7 @@ def file_upload(): #Service 메서드
         f.save(secure_filename(f.filename)) # file 저장
         return "전송완료"
       #  """ {
-      #          "data" : "123"
+      #          "data" : "123",
       #      }
       #  """ # return 문자열 == 응답내용, 기본형식은 text/html --> REST API / JSON 형식으로 데이터 제공
      
