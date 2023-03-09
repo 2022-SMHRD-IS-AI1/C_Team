@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<html>
+  <head>
+    <title>Upload Home</title>
+  </head>
+    
+  <body>
+    <center><h1>FTP Server</h1></center>
+    <hr width="100%" color="black"/>
+
+    <center>
+    <form action="multiFileUploads" method="post" enctype="multipart/form-data">
+    <img src="{{ url_for('static', filename='images/upload.png') }}", width="80" 
+        style="margin-left: auto; margin-right: auto; display: block;"/>
+        <input multiple="multiple" type="file" name="filename[]" />
+        <input type="submit">
+    <a href="multiFileUploads">파일 업로드</a><br><br><br>
+
+    <img src="{{ url_for('static', filename='images/list.png') }}", width="80" 
+        style="margin-left: auto; margin-right: auto; display: block;"/>
+    <a href="list">파일 목록</a><br><br><br>
+      
+    </form>
+    </center>
+  </body>
+</html>
+
+
