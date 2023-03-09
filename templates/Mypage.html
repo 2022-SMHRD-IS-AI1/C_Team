@@ -1,3 +1,10 @@
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <script>
+            alert("{{messages[-1]}}")
+        </script>
+    {% endif %}
+{% endwith %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -61,7 +68,7 @@
 <div class="main-container" id="main_container"><!-- main container -->
   
   <h2 id = "h2_id">My Page</h2>
-  <form action="#" method="post">
+  <form action="mypage" method="post">
   <fieldset id = "all_field">
 
      <div id="basic_info" text-align="center">
@@ -69,7 +76,7 @@
        <fieldset class = "field">
          <div class = "in_field">
          <label class = "label_inp">아이디 : </label> 
-         <input type="text" name="name" required="required" class="input_info" value="{{user_id}}"> <br>
+         <input type="text" name="id" required="required" class="input_info" value="{{user_id}}"> <br>
          <hr>
          <div class = test_input>
          <label class = "label_inp">비밀번호 : </label> 

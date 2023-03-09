@@ -98,7 +98,7 @@ def join(): # 회원가입 함수
             return redirect(url_for('login')) # login 호출
         
         else: # 가입 실패 
-            print("회원가입이 실패했습니다.")
+            print("회원가입에 실패했습니다.")
             return redirect(url_for('join')) # join 호출
         
     else: # get 방식
@@ -106,8 +106,30 @@ def join(): # 회원가입 함수
     
 # 웹에서 mypage 호출 시 실행 함수
 @app.route('/mypage', methods = ['GET','POST'])
-def mypage(): # 메인 페이지 
-    return render_template('mypage.html', user_id = session['user_info'][0]) # 메인 페이지로 이동, 유저 id는 저장된 세션 0번째 컬럼
+def mypage(): # 메인 페이지
+    if request.method == 'POST':
+        id = request.form['id']
+        pw = request.form['pw']
+        pw_c = request.form['pw_c']
+        result = False
+
+        if pw == pw_c:
+            result = user.modify(id, pw)
+            print('result :', result)
+
+        if result: # 정보수정 성공
+            print('회원정보를 수정하였습니다.')
+            # return render_template('mypage.html', user_id = session['user_info'][0])
+            return redirect(url_for('mypage'))
+        else: # 정보수정 실패
+            print('회원정보 수정에 실패했습니다.')
+            flash("비밀번호를 확인해주세요.")
+            # return render_template('mypage.html', user_id = session['user_info'][0]) # 로그인 페이지로 이동
+            return redirect(url_for('mypage'))
+    
+    else:
+        return render_template('mypage.html', user_id = session['user_info'][0])
+
 
 # 웹에서 drive 호출 시 실행 함수 
 @app.route('/drive')

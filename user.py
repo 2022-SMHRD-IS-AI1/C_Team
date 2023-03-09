@@ -51,3 +51,23 @@ def login(id, pw):
         con.close()
 
     return result
+
+# 회원정보 수정
+def modify(id, pw):
+    con = connect()
+    cursor = con.cursor()
+    try:
+        sql = "UPDATE c_user SET user_pw = :1 WHERE user_mail = :2"
+        cursor.execute(sql, [pw, id])
+        con.commit()
+        result = True
+
+    except Exception as e:
+        print(e)
+        result = False
+
+    finally:
+        cursor.close()
+        con.close()
+
+    return result
