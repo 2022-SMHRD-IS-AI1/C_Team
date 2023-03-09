@@ -7,12 +7,9 @@ app = Flask(__name__)
 app.secret_key = 'qwer1234'
 
 # 웹에서 requiry.html 호출 시 실행 함수 
-@app.route('/requiry.html', methods = ['GET','POST'])
+@app.route('/requiry', methods = ['GET','POST'])
 def requiry():
-    try:
-        return render_template('requiry.html')
-    except:
-        print('requiry 오류발생!')
+    return render_template('requiry.html')
 
 # 웹에서 pay 호출 시 실행 함수 
 @app.route('/pay', methods = ['GET','POST'])
@@ -128,7 +125,7 @@ def mypage(): # 메인 페이지
             return redirect(url_for('mypage'))
     
     else:
-        return render_template('mypage.html', user_id = session['user_info'][0])
+        return render_template('mypage.html', user_id = session['user_info'][0], price_type = session['user_info'][1], user_expiration = session['user_info'][3])
 
 
 # 웹에서 drive 호출 시 실행 함수 
