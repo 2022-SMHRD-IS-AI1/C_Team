@@ -41,7 +41,7 @@ def default():
 def main():
     if request.method == 'POST': # post 방식일때
         upload = request.files.getlist("filename[]")
-        request.files
+        # request.files
         print(upload)
         user_id = session['user_info'][0]
         os.makedirs(f'./uploads/{user_id}', exist_ok=True)
@@ -118,6 +118,7 @@ def mypage(): # 메인 페이지
             print('회원정보를 수정하였습니다.')
             # return render_template('mypage.html', user_id = session['user_info'][0])
             return redirect(url_for('mypage'))
+        
         else: # 정보수정 실패
             print('회원정보 수정에 실패했습니다.')
             flash("비밀번호를 확인해주세요.")
