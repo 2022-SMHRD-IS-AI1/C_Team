@@ -67,16 +67,16 @@
 <!-- /.page header -->
 <div class="main-container" id="main_container"><!-- main container -->
   
-  <h2 id = "h2_id">My Page</h2>
+  <h2 class = "h2_id">My Page</h2>
   <form action="mypage" method="post">
-  <fieldset id = "all_field">
+  <fieldset class = "all_field">
 
      <div id="basic_info" text-align="center">
        <h3>기본 정보</h3>
        <fieldset class = "field">
          <div class = "in_field">
          <label class = "label_inp">아이디 : </label> 
-         <input type="text" name="id" required="required" class="input_info" value="{{user_id}}"> <br>
+         <input type="text" name="id" required="required" class="input_info" value="{{user_id}}" readonly> <br>
          <hr>
          <div class = test_input>
          <label class = "label_inp">비밀번호 : </label> 
@@ -87,20 +87,37 @@
          <label class = "label_inp">비밀번호 확인 : </label> 
          <input type="password" name="pw_c" class="input_info" id = "pw_c_i" >
           </div>
-          <hr>
            </div>
        </fieldset>
-       <h3>구독 정보</h3>
+       <!-- <h3>구독 정보</h3>
        <div class = sub_input>
-          PRO / 2023-04-01
+          {{price_type}} / {{user_expiration}} -->
           <!-- 여기에 DB에서 정보 가져와서 넣음 구독 종류, 구독 만료일-->
-          <input type="submit" value="구독 취소" id = "sub_c">
-         </div>
+          <!-- <input type="submit" value="구독 취소" id = "sub_c">
+         </div> -->
+         <div text-align="center" class="div_input">
+          <input type="submit" value="내 정보 변경" class = "info_c">
+        </div>
      </div>
     </fieldset>
-    <div text-align="center" class="div_input">
-      <input type="submit" value="내 정보 변경" id = "info_c">
-    </div>
+  </form>
+
+  <form action="price_cancel" method="post">
+    <h2 class="h2_id">구독 정보</h2>
+      <fieldset class="all_field">
+        <div class="basic_info">
+       <div class = sub_input>
+          구독 종류 : {{price_type}}
+          <!-- 여기에 DB에서 정보 가져와서 넣음 구독 종류, 구독 만료일-->
+        </div><hr>
+        <div class="sub_input">
+          구독 만료일 : {{user_expiration}}
+        </div>
+        <div class = "div_info_C">
+        <input type="submit" value="구독 취소" class = "info_c">
+      </div>
+        </div>
+        </fieldset>
   </form>
 
 <!-- /.main container -->

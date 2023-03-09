@@ -7,12 +7,9 @@ app = Flask(__name__)
 app.secret_key = 'qwer1234'
 
 # 웹에서 requiry.html 호출 시 실행 함수 
-@app.route('/requiry.html', methods = ['GET','POST'])
+@app.route('/requiry', methods = ['GET','POST'])
 def requiry():
-    try:
-        return render_template('requiry.html')
-    except:
-        print('requiry 오류발생!')
+    return render_template('requiry.html')
 
 # 웹에서 pay 호출 시 실행 함수 
 @app.route('/pay', methods = ['GET','POST'])
@@ -44,7 +41,7 @@ def default():
 def main():
     if request.method == 'POST': # post 방식일때
         upload = request.files.getlist("filename[]")
-        request.files
+        # request.files
         print(upload)
         user_id = session['user_info'][0]
         os.makedirs(f'./uploads/{user_id}', exist_ok=True)
@@ -121,6 +118,7 @@ def mypage(): # 메인 페이지
             print('회원정보를 수정하였습니다.')
             # return render_template('mypage.html', user_id = session['user_info'][0])
             return redirect(url_for('mypage'))
+        
         else: # 정보수정 실패
             print('회원정보 수정에 실패했습니다.')
             flash("비밀번호를 확인해주세요.")
@@ -128,7 +126,30 @@ def mypage(): # 메인 페이지
             return redirect(url_for('mypage'))
     
     else:
-        return render_template('mypage.html', user_id = session['user_info'][0])
+        return render_template('mypage.html', user_id = session['user_info'][0], price_type = session['user_info'][1], user_expiration = session['user_info'][3])
+
+# 구독 취소
+@app.route('/price_cancel', methods = ['GET','POST'])
+def price_cancel(): # 메인 페이지
+    if request.method == 'POST':
+        id = session['user_info'][0]
+        result = user.price_cancel(id)
+        print('result :', result)
+
+        if result: # 정보수정 성공
+            print('구독을 취소하였습니다.')
+            # return render_template('mypage.html', user_id = session['user_info'][0])
+            session['user_info'] = result # session 저장
+            return redirect(url_for('price_cancel'))
+        
+        else: # 정보수정 실패
+            print('구독취소에 실패하였습니다')
+            flash("구독취소에 실패하였습니다.")
+            # return render_template('mypage.html', user_id = session['user_info'][0]) # 로그인 페이지로 이동
+            return redirect(url_for('price_cancel'))
+    
+    else:
+        return render_template('mypage.html', user_id = session['user_info'][0], price_type = session['user_info'][1], user_expiration = session['user_info'][3])
 
 
 # 웹에서 drive 호출 시 실행 함수 
