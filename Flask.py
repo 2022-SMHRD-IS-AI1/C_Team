@@ -129,6 +129,8 @@ def mypage(): # 메인 페이지
         return render_template('mypage.html', user_id = session['user_info'][0], price_type = session['user_info'][1], user_expiration = session['user_info'][3])
 
 
+
+
 # 웹에서 drive 호출 시 실행 함수 
 @app.route('/drive')
 def drive():
