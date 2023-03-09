@@ -73,3 +73,28 @@ def modify(id, pw):
         con.close() # db 연결 닫기
 
     return result # result(성공여부) 리턴
+
+# 구독 취소
+def price_cancel(id):
+    con = connect() # db 연결
+    cursor = con.cursor() # cursor 객체(튜플) 생성
+    result = [] # result를 list 형태로 생성
+    try:
+        # sql문
+        sql = "UPDATE c_user SET price_type = 'Basic' WHERE user_mail = :1"
+        cursor.execute(sql, [id]) # sql문 실행
+        con.commit() # 커밋
+        sql = "SELECT user_mail, price_type, user_joinprice, user_expiration FROM c_user WHERE user_mail = :1"
+        cursor.execute(sql, [id]) # sql문 실행
+        data = cursor.fetchone() # data에 sql문 결과(1행) 저장
+        if data:
+            result = list(data) # result에 data를 리스트 형태로 저장
+
+    except Exception as e:
+        print(e) # 예외 메시지 출력
+
+    finally: # 예외 여부와 관계없이 실행
+        cursor.close() # cursor 객체 닫기
+        con.close() # db 연결 닫기
+
+    return result # result(세션에 저장할 리스트 형태의 data) 리턴

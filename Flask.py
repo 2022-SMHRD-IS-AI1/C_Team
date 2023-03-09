@@ -128,7 +128,28 @@ def mypage(): # 메인 페이지
     else:
         return render_template('mypage.html', user_id = session['user_info'][0], price_type = session['user_info'][1], user_expiration = session['user_info'][3])
 
+# 구독 취소
+@app.route('/price_cancel', methods = ['GET','POST'])
+def price_cancel(): # 메인 페이지
+    if request.method == 'POST':
+        id = session['user_info'][0]
+        result = user.price_cancel(id)
+        print('result :', result)
 
+        if result: # 정보수정 성공
+            print('구독을 취소하였습니다.')
+            # return render_template('mypage.html', user_id = session['user_info'][0])
+            session['user_info'] = result # session 저장
+            return redirect(url_for('price_cancel'))
+        
+        else: # 정보수정 실패
+            print('구독취소에 실패하였습니다')
+            flash("구독취소에 실패하였습니다.")
+            # return render_template('mypage.html', user_id = session['user_info'][0]) # 로그인 페이지로 이동
+            return redirect(url_for('price_cancel'))
+    
+    else:
+        return render_template('mypage.html', user_id = session['user_info'][0], price_type = session['user_info'][1], user_expiration = session['user_info'][3])
 
 
 # 웹에서 drive 호출 시 실행 함수 
