@@ -102,11 +102,11 @@
     </fieldset>
   </form>
 
-  <form action="price_cancel" method="post">
+  <form name="price_cancel" action="price_cancel" method="post">
     <h2 class="h2_id">구독 정보</h2>
       <fieldset class="all_field">
         <div class="basic_info">
-       <div class = sub_input>
+       <div class="sub_input">
           구독 종류 : {{price_type}}
           <!-- 여기에 DB에서 정보 가져와서 넣음 구독 종류, 구독 만료일-->
         </div><hr>
@@ -114,7 +114,7 @@
           구독 만료일 : {{user_expiration}}
         </div>
         <div class = "div_info_C">
-        <input type="submit" value="구독 취소" class = "info_c">
+        <input type="button" value="구독 취소" class="info_c" onclick="button_event()">
       </div>
         </div>
         </fieldset>
@@ -190,5 +190,17 @@
 <!-- Back to top script --> 
 <script src="{{ url_for('static', filename='js/back-to-top.js')}}" type="text/javascript"></script>
 
+<script>
+  function button_event(){
+    
+  if (confirm("정말 구독을 취소하시겠습니까?") == true){    //확인
+      var form = document.price_cancel;
+      form.submit();
+  
+  }else{   //취소
+      return;
+    }
+  }
+  </script>
 </body>
 </html>
