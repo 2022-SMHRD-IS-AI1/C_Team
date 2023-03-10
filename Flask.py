@@ -138,6 +138,7 @@ def price_cancel(): # 메인 페이지
 
         if result: # 정보수정 성공
             print('구독을 취소하였습니다.')
+            flash("구독을 취소하였습니다.")
             # return render_template('mypage.html', user_id = session['user_info'][0])
             session['user_info'] = result # session 저장
             return redirect(url_for('price_cancel'))
