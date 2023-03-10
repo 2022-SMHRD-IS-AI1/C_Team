@@ -4,7 +4,7 @@ from kiwipiepy import Kiwi
 import numpy as np
 from keybert import KeyBERT
 
-file_list = os.listdir('./new_folder')
+file_list = os.listdir('./C_team/new_folder')
 # print(file_list)
 kiwi = Kiwi(load_default_dict=True)
 #kiwi.load_user_dictionary('user_dictionary.txt')
@@ -15,8 +15,10 @@ kiwi.add_user_word("3D", "NNG")
 kiwi.add_user_word("AR", "NNG")
 kw_model = KeyBERT(model='paraphrase-distilroberta-base-v1')
 
-for i in range(10):
-    text = docx2txt.process('./new_folder/'+file_list[i])
+
+for i in range(100):
+    text = docx2txt.process('./C_team/new_folder/'+file_list[i])
+
     # print(text)
     # 용언품사 = ['VV', 'VA']
     result = kiwi.analyze(text)
