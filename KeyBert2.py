@@ -2,6 +2,11 @@ import os
 import docx2txt
 from kiwipiepy import Kiwi
 from keybert import KeyBERT
+from flair.embeddings import TransformerDocumentEmbeddings
+from sentence_transformers import SentenceTransformer
+
+
+# from collections import Counter
 
 file_list = os.listdir('./new_folder')
 doc = ""
@@ -12,10 +17,19 @@ kiwi.load_user_dictionary('userDict.txt')
 kiwi.prepare()
 # kiwi_analyze = kiwi.analyze(doc)
 
-kw_model = KeyBERT(model='paraphrase-MiniLM-L3-v2')
+kw_model = KeyBERT(model='distiluse-base-multilingual-cased-v1')
+
+# roberta = TransformerDocumentEmbeddings('roberta-base')
+# kw_model = KeyBERT(model=roberta)
+
+# sentence_model = SentenceTransformer("all-MiniLM-L6-v2")
+# kw_model = KeyBERT(model=sentence_model)
 
 
-for i in range(200):
+result = []
+
+
+for i in range(500):
     doc = docx2txt.process('./new_folder/'+file_list[i])
     kiwi_tokenize = kiwi.tokenize(doc)
 
@@ -28,20 +42,18 @@ for i in range(200):
         if i[1].startswith(명사):
             token += (i[0] + '\t')
 
-    print(token)
-        
+    # print(token)
 
-    # keywords = kw_model.extract_keywords(token, keyphrase_ngram_range=(1, 3), stop_words=None, use_mmr=True, diversity=0.7)
+    keywords = kw_model.extract_keywords(token, highlight=True, keyphrase_ngram_range=(1, 2), stop_words=None)
 
-    # print(keywords)
+    
+    if keywords:
+        result.append(keywords[0][0])
+        # print(keywords[0][0])
+    else:
+        result.append("Null")
+        # print("Null")
+    
+    # print(keywords[0][0])
 
-
-# from bertopic import BERTopic
-# from sklearn.datasets import fetch_20newsgroups
- 
-# #docs = fetch_20newsgroups(subset='all',  remove=('headers', 'footers', 'quotes'))['data']
-
-# topic_model = BERTopic()
-# topics, probs = topic_model.fit_transform(doc)
-
-# topic_model.get_topic(0)
+print(result)
