@@ -6,6 +6,8 @@ from keybert import KeyBERT
 kw_model = KeyBERT(model='Paraphrase-Multilingual-MiniLM-L12-v2')
 file_list = os.listdir('./new_folder')
 
+
+file_list = os.listdir('./new_folder')
 # print(file_list)
 kiwi = Kiwi(load_default_dict=True)
 kiwi.add_user_word("3D", "NNG")
@@ -14,6 +16,8 @@ kiwi.add_user_word("AR", "NNG")
 kiwi.prepare()
 
 
+for i in range(100):
+    text = docx2txt.process('./new_folder/'+file_list[i])
 topic_list = []
 kiwi.add_user_word("3D", "NNG")
 kiwi.add_user_word("AR", "NNG")
@@ -22,6 +26,7 @@ kw_model = KeyBERT(model='paraphrase-distilroberta-base-v1')
 
 for i in range(10):
     text = docx2txt.process('./new_folder/'+file_list[i])
+
 
 
     # print(text)
