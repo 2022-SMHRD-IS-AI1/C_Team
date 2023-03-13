@@ -13,6 +13,7 @@ import os
 
 file_list = os.listdir('./new_folder')
 
-for i in range(10):
+for i in range(0,500):
     token = KK.Kiwi_tokenize(file_list[i])
-    result = KK.KeyBERT_model(token)
+    print(token)
+    # result = KK.KeyBERT_model(token)
