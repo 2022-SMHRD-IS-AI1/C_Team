@@ -42,7 +42,8 @@ file_list = os.listdir('./new_folder')
 
 def Kiwi_tokenize(file_name):
     doc = ''
-    token = []
+    # token = []
+    result = ''
 
     #형용사 = ('VA')
     #용언품사 = ('VV', 'VA')
@@ -53,15 +54,22 @@ def Kiwi_tokenize(file_name):
 
     for i in kiwi_tokenize:
         if i[1].startswith(명사):
-            token.append(i[0])
+            # token.append(i[0])
+            result += i[0] + ' '
             
-    unique, counts = np.unique(token, return_counts=True)
-    uniq_cnt_dict = dict(zip(unique, counts))
-    token = sorted(uniq_cnt_dict.items(), 
-       reverse = True, 
-       key = lambda x: x[1])
-    # print(token)
-    return token
+    # unique, counts = np.unique(token, return_counts=True)
+    # uniq_cnt_dict = dict(zip(unique, counts))
+    # token = sorted(uniq_cnt_dict.items(), 
+    #    reverse = True, 
+    #    key = lambda x: x[1])
+    # print('length of token :',len(token))
+    # if len(token) >= 5:
+    #     for i in range(5):
+    #         result += token[i][0] + ' '
+    # else:
+    #     result = None
+
+    return result
 
 def KeyBERT_model(token):
     result = []
