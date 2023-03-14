@@ -15,3 +15,4 @@ for i in range(100):
     print('파일확장자' + extention)
     print('파일 생성일' + date)
 
+
