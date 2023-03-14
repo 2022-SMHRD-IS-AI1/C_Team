@@ -47,7 +47,7 @@ def Kiwi_tokenize(file_name):
 
     #형용사 = ('VA')
     #용언품사 = ('VV', 'VA')
-    명사 = ('N')
+    명사 = ('NN')
 
     doc = docx2txt.process('./new_folder/'+file_name)
     kiwi_tokenize = kiwi.tokenize(doc)
@@ -56,6 +56,7 @@ def Kiwi_tokenize(file_name):
         if i[1].startswith(명사):
             # token.append(i[0])
             result += i[0] + ' '
+            # token.append(i[0])
             
     # unique, counts = np.unique(token, return_counts=True)
     # uniq_cnt_dict = dict(zip(unique, counts))
