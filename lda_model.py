@@ -1,6 +1,7 @@
 import os
 import re
 from pprint import pprint
+from tqdm import tqdm
 
 import gensim
 from gensim import corpora
@@ -47,7 +48,7 @@ def preprocess(text):
 processed_docs = []
 
 # 폴더 내 모든 문서에 대해 전처리 수행
-for doc in doc_list:
+for doc in tqdm(doc_list):
     # 문서 파일 열기
     # with open(os.path.join(doc_folder_path, doc), 'r', encoding='utf-8') as f:
     #     # 문서 파일 읽기
@@ -66,10 +67,10 @@ for doc in doc_list:
     processed_docs.append(processed_doc)
 
 # 문서를 단어별로 분리하여 단어장 생성
-dictionary = corpora.Dictionary([doc.split() for doc in processed_docs])
+dictionary = corpora.Dictionary([doc.split() for doc in tqdm(processed_docs)])
 
 # 문서-단어 행렬 생성
-corpus = [dictionary.doc2bow(doc.split()) for doc in processed_docs]
+corpus = [dictionary.doc2bow(doc.split()) for doc in tqdm(processed_docs)]
 
 # LDA 모델 생성
 lda_model = LdaModel(corpus=corpus,
