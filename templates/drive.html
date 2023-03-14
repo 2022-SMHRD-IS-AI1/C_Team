@@ -208,14 +208,18 @@
    
   </script>
 
-<script>
-
+<script>//로딩바
   var loader =  document.querySelector(".loader");
   var container =  document.querySelector(".container")
   
          function _showPage() {
-          loader.style.display = 'none';
-          container.css("display","block");
+          if(true){
+            loder.style.display = 'bolck';
+          }else{
+            loader.style.display = 'none';
+          }
+          
+          
         };
   
   
