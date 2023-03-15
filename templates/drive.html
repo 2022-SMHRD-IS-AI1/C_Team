@@ -76,6 +76,9 @@
        <!-- 여기에다가 드라이브 넣으면 됩니다. -->
 
        <!-- 드라이브 코드 넣는 곳 -->
+       <div class="loader" ></div>
+       <button class="btnclick" onclick="_showPage();">클릭</button>
+       <div></div>
 
         <!-- 여기에다가 드라이브 넣으면 됩니다. -->
     </div>
@@ -204,6 +207,24 @@
   })
    
   </script>
+
+<script>//로딩바
+  var loader =  document.querySelector(".loader");
+  var container =  document.querySelector(".container")
+  
+         function _showPage() {
+          if(true){
+            loder.style.display = 'bolck';
+          }else{
+            loader.style.display = 'none';
+          }
+          
+          
+        };
+  
+  
+        
+        </script>
 
 </body>
 </html>
