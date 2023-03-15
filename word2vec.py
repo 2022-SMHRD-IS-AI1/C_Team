@@ -1,4 +1,4 @@
-import kiwi_keybert as KK
+import kiwi as KK
 import os
 # from gensim.models.word2vec import Word2Vec
 

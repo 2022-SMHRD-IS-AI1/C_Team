@@ -3,13 +3,10 @@ import re
 from pprint import pprint
 from tqdm import tqdm
 
-import gensim
 from gensim import corpora
 from gensim.models import LdaModel
-from gensim.parsing.preprocessing import STOPWORDS
-import docx2txt
-import kiwi_keybert as KK
-import numpy as np
+# from gensim.parsing.preprocessing import STOPWORDS
+import kiwi
 
 # 폴더 내 문서 경로 설정
 doc_folder_path = './new_folder'
@@ -30,7 +27,7 @@ stopwords = ({'개발', '연구', '향상', '전략', '과정', '문제', '정�
                               '7.', '8.', '9.', '(1)', '(2)', '(3)', '(4)', '(5)', '(6)', ' (7)', '(8)', '(9)', '주요',
                                '중요한', '매우', '것이', '있고', '하도록', '이루기', '로', '여러', '되며', '-', '.', ',',
                                 '따른', '두고', '담고', '있도록', '모으고', '모아', '담아', '두고', '의도한', '해당', '형식', '경우',
-                                 '추가', '데이터', '모델', '분석', '수', '시스템', '기획'})
+                                 '추가', '데이터', '모델', '분석', '수', '시스템', '기획', '수집', '경험', '객체', '인식', '안'})
 # 텍스트 전처리 함수
 def preprocess(text):
     # 소문자 변환
@@ -49,19 +46,9 @@ processed_docs = []
 
 # 폴더 내 모든 문서에 대해 전처리 수행
 for doc in tqdm(doc_list):
-    # 문서 파일 열기
-    # with open(os.path.join(doc_folder_path, doc), 'r', encoding='utf-8') as f:
-    #     # 문서 파일 읽기
-    #     text = f.read()
-    #     # 전처리 수행
-    #     processed_doc = preprocess(text)
-    #     # 전처리된 문서 리스트에 추가
-    #     processed_docs.append(processed_doc)
-
-    # text = docx2txt.process('./new_folder/'+doc)
+    # Kiwi에서 문서별 토큰 가져오기
+    token = kiwi.tokenize(doc)
     # 전처리 수행
-    # processed_doc = preprocess(text)
-    token = KK.Kiwi_tokenize(doc)
     processed_doc = preprocess(token)
     # 전처리된 문서 리스트에 추가
     processed_docs.append(processed_doc)
@@ -77,7 +64,10 @@ lda_model = LdaModel(corpus=corpus,
                      id2word=dictionary,
                      num_topics=10, # 주제 개수 설정
                      passes=20, # 알고리즘 반복 횟수 설정
-                     alpha='symmetric')
+                     alpha='auto',
+                     eta="auto",
+                     iterations=400,
+                     eval_every=None)
 
 # 각 문서별로 주제 분포 추정
 doc_topic_dists = lda_model[corpus]
@@ -91,11 +81,8 @@ for i, topic_list in enumerate(lda_model[corpus]):
     print(doc_list[i],'문서의 topic 비율은',topic_list)
 
 
-import pickle
 import pyLDAvis.gensim as gensimvis
 import pyLDAvis
-from gensim.models.coherencemodel import CoherenceModel
-import matplotlib.pyplot as plt
 
 lda_visualization = gensimvis.prepare(lda_model, corpus, dictionary, sort_topics=False)
 pyLDAvis.save_html(lda_visualization, 'file_name.html')
