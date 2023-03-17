@@ -3,6 +3,15 @@ import user
 import socket
 import file2
 import lda_model2
+import os
+from functools import wraps
+import asyncio
+
+def async_action(f):
+    @wraps(f)
+    def wrapped(*args, **kwargs):
+        return asyncio.run(f(*args, **kwargs))
+    return wrapped
 
 app = Flask(__name__)
 app.secret_key = 'qwer1234'
@@ -30,6 +39,17 @@ def price():
 
 
 
+# async def upload():
+#     file_list = request.files.getlist("filename[]") # 업로드된 파일을 리스트 형식으로 변수에 저장
+#     user_seq = session['user_info'][0] # 세션에 저장된 c_user 테이블의 user_seq 컬럼에 접근
+
+#     await file2.upload(user_seq, file_list)
+#     file_topic = await lda_model2.classification(user_seq)
+#     for i in range(len(file_topic)):
+#         file_path = f'./uploads/{user_seq}/{file_topic[i]}/'
+#         file_name, file_ext = os.path.splitext(file_list[i])
+#         await file2.db_update(user_seq, file_path, file_name[i], file_ext)
+
 
 
 # 기본 시작페이지    
@@ -39,16 +59,22 @@ def default():
 
 # 웹에서 /main이 호출되면 실행되는 함수 
 @app.route('/main', methods = ['GET','POST']) # get, post
-def main():
+@async_action
+async def main():
     if request.method == 'POST': # post 방식일때
         # request.files
-        file_name = request.files.getlist("filename[]")
-        user_id = session['user_info'][0]
+        file_list = request.files.getlist("filename[]") # 업로드된 파일을 리스트 형식으로 변수에 저장
+        user_seq = session['user_info'][0] # 세션에 저장된 c_user 테이블의 user_seq 컬럼에 접근
 
-        file2.upload(user_id, file_name)
-        lda_model2.classification(user_id)
-        file2.db_update(user_id, file_path, file_name, file_ext)
-        return render_template('main.html') # 메인 페이지로 이동
+        await file2.upload(user_seq, file_list)
+        file_topic = await lda_model2.classification(user_seq)
+        for i in range(len(file_list)):
+            file_path = f'./uploads/{user_seq}/{file_topic[i]}/'
+            print(file_list[i])
+            file_name, file_ext = os.path.splitext(file_list[i])
+            print(file_name, file_ext)
+            await file2.db_update(user_seq, file_path, file_name[i], file_ext)
+            return render_template('main.html') # 메인 페이지로 이동
     
     else: # get 방식일때 
         return render_template('main.html') # 메인 페이지로 이동

@@ -38,7 +38,7 @@ def login(id, pw):
     result = [] # result를 list 형태로 생성
     try:
         # sql문
-        sql = "SELECT user_mail, price_type, user_joinprice, user_expiration FROM c_user WHERE user_mail = :1 AND user_pw = :2"
+        sql = "SELECT user_seq, user_mail, price_type, user_joinprice, user_expiration FROM c_user WHERE user_mail = :1 AND user_pw = :2"
         cursor.execute(sql, [id, pw]) # sql문 실행
         data = cursor.fetchone() # data에 sql문 결과(1행) 저장
         if data:

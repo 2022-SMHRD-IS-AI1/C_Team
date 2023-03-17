@@ -10,13 +10,11 @@ def connect():
     return cx_Oracle.connect("c_team", "c_team123", "project-db-stu.ddns.net:1524/xe", encoding="UTF-8")
     
 # 파일 정보 db에 저장
-def db_update(user_id, file_path, file_name, file_ext):
+async def db_update(user_seq, file_path, file_name, file_ext):
     con = connect() # db 연결
     cursor = con.cursor() # cursor 객체(튜플) 생성
     try: 
         # sql문
-        sql = "SELECT user_seq FROM c_user WHERE user_mail = :1"
-        user_seq = cursor.execute(sql, [user_id]) # sql문 실행
         sql = "INSERT INTO file_info(user_seq, file_path, file_name, file_ext, file_upload) VALUES(:1, :2, :3, :4, 'SYSDATE')"
         cursor.execute(sql, [user_seq, file_path, file_name, file_ext]) # sql문 실행
         con.commit() # 커밋
@@ -32,7 +30,7 @@ def db_update(user_id, file_path, file_name, file_ext):
 
     return result # result(성공여부) 리턴
 
-def upload(user_id, file_name):
+async def upload(user_id, file_name):
    
     os.makedirs(f'./uploads/{user_id}', exist_ok=True)
 

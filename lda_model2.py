@@ -27,7 +27,7 @@ def preprocess(text):
     return text
 
 
-def classification(user_id):
+async def classification(user_id):
     # 폴더 내 문서 경로 설정
     doc_folder_path = f'./uploads/{user_id}'
     doc_list = os.listdir(doc_folder_path)
@@ -97,8 +97,8 @@ def classification(user_id):
     print(file_topic)
 
     # 결과 시각화
-    lda_visualization = gensimvis.prepare(lda_model, corpus, dictionary, sort_topics=False)
-    pyLDAvis.save_html(lda_visualization, 'file_name.html')
+    # lda_visualization = gensimvis.prepare(lda_model, corpus, dictionary, sort_topics=False)
+    # pyLDAvis.save_html(lda_visualization, 'file_name.html')
 
     return file_topic
     # for i in range(5):
@@ -121,4 +121,4 @@ def classification(user_id):
     # print(index, topic)
 
 
-classification('admin')
+#classification('admin')
