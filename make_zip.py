@@ -14,6 +14,6 @@ def zip_folder(folder_path, output_path):
                 zipf.write(file_path, os.path.relpath(file_path, folder_path))
 
 if __name__ == '__main__':
-    folder_path = '/path/to/folder'
+    folder_path = '/path/to/folder/'
     output_path = '/path/to/output.zip'
     zip_folder(folder_path, output_path)
