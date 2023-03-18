@@ -72,7 +72,7 @@ async def main():
         file_list = os.listdir(f'./uploads/{user_seq}/')
         print(file_list)
         file2.db_update(user_seq, file_list, file_topic)
-        return render_template('main.html') # 메인 페이지로 이동
+        return redirect(url_for('drive')) # 메인 페이지로 이동
     else: # get 방식일때 
         return render_template('main.html') # 메인 페이지로 이동
 
