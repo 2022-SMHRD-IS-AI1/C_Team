@@ -216,8 +216,9 @@ def download():
                 for filename in filenames:
                     filepath = os.path.join(dirpath, filename)
                     zip.write(filepath)
-            #   for files in os.walk(folder_path):
-            #         zip.write(os.path.join(folder_path, files))
+            #   for root, dirs, files in os.walk(folder_path):
+            #       for file in files:
+            #           zip.write(os.path.join(root, file))
 
         # 압축 파일 다운로드
         return send_file(zip_path, as_attachment=True) # 첨부 파일로 다운로드 as_attachment=True
