@@ -181,9 +181,10 @@ def drive():
     file_list = file2.file_list_in_dir(file_path)
     sum_file_size = 0
     print(file_list)
-    for i in range(len(file_list)):
-        file_size = os.path.getsize(file_path+file_list[i])
-        sum_file_size += file_size
+    if len(file_list)>0:
+        for i in range(len(file_list)):
+            file_size = os.path.getsize(file_path+file_list[i])
+            sum_file_size += file_size
     convert_file_size = file2.convert_size(sum_file_size)
     print('File Size:', convert_file_size, 'bytes')
     return render_template('drive.html')
