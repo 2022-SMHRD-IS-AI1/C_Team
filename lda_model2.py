@@ -26,9 +26,9 @@ def preprocess(text):
     return text
 
 
-async def classification(user_id):
+async def classification(user_id, file_path):
     # 폴더 내 문서 경로 설정
-    doc_folder_path = f'./uploads/{user_id}'
+    doc_folder_path = file_path
     doc_list = os.listdir(doc_folder_path)
 
     # 전처리된 문서를 저장할 리스트
@@ -37,7 +37,7 @@ async def classification(user_id):
     # 폴더 내 모든 문서에 대해 전처리 수행
     for doc in tqdm(doc_list):
         # Kiwi에서 문서별 토큰 가져오기
-        token = kiwi2.tokenize(doc)
+        token = kiwi2.tokenize(doc, file_path)
         # 전처리 수행
         processed_doc = preprocess(token)
         # 전처리된 문서 리스트에 추가
@@ -96,8 +96,8 @@ async def classification(user_id):
     print(file_topic)
 
     # 결과 시각화
-    lda_visualization = gensimvis.prepare(lda_model, corpus, dictionary, sort_topics=False)
-    pyLDAvis.save_html(lda_visualization, 'file_name.html')
+    # lda_visualization = gensimvis.prepare(lda_model, corpus, dictionary, sort_topics=False)
+    # pyLDAvis.save_html(lda_visualization, 'file_name.html')
 
     return file_topic
     # for i in range(5):

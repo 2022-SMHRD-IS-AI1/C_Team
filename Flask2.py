@@ -63,8 +63,8 @@ async def main():
         file_list = request.files.getlist("filename[]") # 업로드된 파일을 리스트 형식으로 변수에 저장
         user_seq = session['user_info'][0] # 세션에 저장된 c_user 테이블의 user_seq 컬럼에 접근
 
-        await file2.upload(user_seq, file_list) # 파일 업로드
-        file_topic = await lda_model2.classification(user_seq) # 업로드된 파일 모델 분류후 file_topic 변수에 저장
+        file_path = await file2.upload(user_seq, file_list) # 파일 업로드
+        file_topic = await lda_model2.classification(user_seq, file_path) # 업로드된 파일 모델 분류후 file_topic 변수에 저장
         file_list = os.listdir(f'./uploads/{user_seq}/')
         print(file_list)
         file2.db_update(user_seq, file_list, file_topic)

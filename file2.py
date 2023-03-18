@@ -35,11 +35,13 @@ def db_update(user_seq, file_list, file_topic):
     return result # result(성공여부) 리턴
 
 async def upload(user_id, file_name):
-   
-    os.makedirs(f'./uploads/{user_id}', exist_ok=True)
+
+    file_path = f'./uploads/{user_id}/'
+    os.makedirs(file_path, exist_ok=True)
 
     for f in file_name:
-        f.save(f'./uploads/{user_id}/' + f.filename)
+        f.save(file_path + f.filename)
+    return file_path
     
 # file_list = os.listdir('./new_folder')
 
