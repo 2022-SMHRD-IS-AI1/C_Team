@@ -10,6 +10,10 @@
     justify-content: center;
   } */
 
+.non_drive{
+  text-align: center;
+}
+
  .main-container{
   margin-top: 50px;
  } 

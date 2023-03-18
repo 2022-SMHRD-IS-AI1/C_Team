@@ -187,7 +187,11 @@ def drive():
             sum_file_size += file_size
     convert_file_size = file2.convert_size(sum_file_size)
     print('File Size:', convert_file_size, 'bytes')
-    upload_time_list = os.listdir(file_path)
+    try:
+        upload_time_list = os.listdir(file_path)
+    except Exception as e:
+        print(e)
+        upload_time_list = 0
     return render_template('drive.html',size = convert_file_size, file_list = file_list, upload_time_list = upload_time_list)
 
 # 파일 압축 다운로드 
