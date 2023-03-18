@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash, send_file
-import socket, os, asyncio, zipfile
+import socket, os, asyncio, zipfile, time
 from functools import wraps
 from tqdm import tqdm
 import user, file2, lda_model2
@@ -62,13 +62,13 @@ async def main():
         # request.files
         file_list = request.files.getlist("filename[]") # 업로드된 파일을 리스트 형식으로 변수에 저장
         user_seq = session['user_info'][0] # 세션에 저장된 c_user 테이블의 user_seq 컬럼에 접근
-
-        file_path = await file2.upload(user_seq, file_list) # 파일 업로드
+        nowtime = time.strftime('%Y-%m-%d_%H_%M_%S')
+        file_path = await file2.upload(user_seq, file_list, nowtime) # 파일 업로드
         file_topic = await lda_model2.classification(user_seq, file_path) # 업로드된 파일 모델 분류후 file_topic 변수에 저장
-        file_list = os.listdir(f'./uploads/{user_seq}/')
-        print(file_list)
+        file_list = os.listdir(file_path)
+        print('file_list :',file_list)
         file2.db_update(user_seq, file_list, file_topic)
-        file2.replace_file(user_seq, file_list, file_topic)
+        file2.replace_file(file_path, file_list, file_topic)
         return redirect(url_for('drive')) # 메인 페이지로 이동
     else: # get 방식일때 
         return render_template('main.html') # 메인 페이지로 이동
@@ -183,7 +183,7 @@ def drive():
     print(file_list)
     if len(file_list)>0:
         for i in range(len(file_list)):
-            file_size = os.path.getsize(file_path+file_list[i])
+            file_size = os.path.getsize(file_list[i])
             sum_file_size += file_size
     convert_file_size = file2.convert_size(sum_file_size)
     print('File Size:', convert_file_size, 'bytes')

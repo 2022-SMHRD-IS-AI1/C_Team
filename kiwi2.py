@@ -27,7 +27,7 @@ stopwords = ({'개발', '연구', '향상', '전략', '과정', '문제', '정�
 # stopwords.save('stopwords.txt')
 kiwi.prepare()
 
-file_list = os.listdir('./new_folder')
+# file_list = os.listdir('./new_folder')
 
 def tokenize(file_name, file_path):
     doc = ''
@@ -37,6 +37,7 @@ def tokenize(file_name, file_path):
     #형용사 = ('VA')
     #용언품사 = ('VV', 'VA')
     명사 = ('NN')
+    print(file_path+file_name)
 
     doc = docx2txt.process(file_path+file_name)
     kiwi_tokenize = kiwi.tokenize(doc)

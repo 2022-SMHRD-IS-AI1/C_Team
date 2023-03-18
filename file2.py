@@ -34,9 +34,9 @@ def db_update(user_seq, file_list, file_topic):
 
     return result # result(성공여부) 리턴
 
-async def upload(user_id, file_name):
+async def upload(user_id, file_name, nowtime):
 
-    file_path = f'./uploads/{user_id}/'
+    file_path = f'./uploads/{user_id}/{nowtime}/'
     os.makedirs(file_path, exist_ok=True)
 
     for f in file_name:
@@ -56,22 +56,30 @@ async def upload(user_id, file_name):
 #     print('파일 생성일' + date)
 
 
-def replace_file(user_seq, file_list, file_topic):
+def replace_file(file_path, file_list, file_topic):
     for i in range(len(file_list)):
-        file_path = f'./uploads/{user_seq}/'
-        file_destination = f'./uploads/{user_seq}/{file_topic[i]}/'
+        file_destination = f'{file_path}{file_topic[i]}/'
+
+        print('file_path :',file_path)
+        print('file_destination :',file_destination)
         os.makedirs(file_destination, exist_ok=True)
         os.replace(file_path+file_list[i], file_destination+file_list[i])
         
 def file_list_in_dir(file_path):
     file_list = []
     try:
-        list_dir = os.listdir(file_path)
-        if list_dir:
-            for dir_name in list_dir:
-                dir_file_list = os.listdir(file_path+dir_name)
-                for file_name in dir_file_list:
-                    file_list.append(dir_name+'/'+file_name)
+        time_dir_list = os.listdir(file_path)
+        if time_dir_list:
+            for time_dir in time_dir_list:
+                # print('time_dir :',time_dir)
+                file_dir_list = os.listdir(file_path+time_dir)
+                for file_dir in file_dir_list:
+                    # print('file_dir :',file_dir)
+                    file_name_list = os.listdir(file_path+time_dir+'/'+file_dir)
+                    # print('file_list :',file_name_list)
+                    for file_name in file_name_list:
+                        print('file_list :',file_path+time_dir+'/'+file_dir+'/'+file_name)
+                        file_list.append(file_path+time_dir+'/'+file_dir+'/'+file_name)
     except Exception as e:
         print(e)
     finally:
