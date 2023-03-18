@@ -187,7 +187,7 @@ def drive():
             sum_file_size += file_size
     convert_file_size = file2.convert_size(sum_file_size)
     print('File Size:', convert_file_size, 'bytes')
-    return render_template('drive.html')
+    return render_template('drive.html',size = convert_file_size, file_list = file_list)
 
 # 파일 압축 다운로드 
 @app.route('/download')
