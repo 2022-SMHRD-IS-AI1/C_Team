@@ -76,15 +76,16 @@
             <td class="table_title">폴더명</td>
             <td class="table_title">다운로드</td>
           </tr>
-          <form action="download">
           {%if upload_time_list != 0%}
-            {%for i in range(upload_time_list|length)%}
+          {%for i in range(upload_time_list|length)%}
+          <form action="download" method="post">
             <tr>
               <td>{{upload_time_list[i]}}</td>
-              <td><Button class="btn btn-default" type="submit" value="{{i}}">다운로드</Button></td>
+              <td><Button class="btn btn-default" type="submit">다운로드</Button></td>
             </tr>
-            {%endfor%}
+              <input class="hidden" name = "download" value="{{i}}">
           </form>
+            {%endfor%}
           {%else%}
           <tr>
             <td colspan="2" class = non_drive >저장된 파일이 없습니다.</td>

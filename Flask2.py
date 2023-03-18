@@ -195,21 +195,30 @@ def drive():
     return render_template('drive.html',size = convert_file_size, file_list = file_list, upload_time_list = upload_time_list)
 
 # 파일 압축 다운로드 
-@app.route('/download')
+@app.route('/download', methods = ['GET','POST'])
 def download():
-    user_id = session['user_info'][0]
-    # 압축할 폴더 경로
-    folder_path = f'./uploads/{user_id}'
+    if request.method == 'POST':
+        id = session['user_info'][0]
+        i = int(request.form['download'])
+        print(i)
+        print(type(i))
+        # 압축할 폴더 경로
+        file_path = f'./uploads/{id}/'
+        upload_time_list = os.listdir(file_path)
+        print('upload_time_list :',upload_time_list)
+        folder_path = f'./uploads/{id}/{upload_time_list[i]}/'
+        print('folder_path :',folder_path)
 
-    # 압축 파일 생성
-    zip_path = f"{folder_path}.zip"
-    with zipfile.ZipFile(zip_path, 'w') as zip:
-        for root, dirs, files in os.walk(folder_path):
-            for file in files:
-                zip.write(os.path.join(root, file))
+        # 압축 파일 생성
+        zip_path = f"{folder_path}.zip"
+        with zipfile.ZipFile(zip_path, 'w') as zip:
+              for dirs, files in os.listdir(folder_path):
+                    zip.write(os.path.join(dirs, files))
 
-    # 압축 파일 다운로드
-    return send_file(zip_path, as_attachment=True) # 첨부 파일로 다운로드 as_attachment=True
+        # 압축 파일 다운로드
+        return send_file(zip_path, as_attachment=True) # 첨부 파일로 다운로드 as_attachment=True
+    else:
+        return render_template('drive.html')
 
 if __name__ == '__main__':
     app.run(host = socket.gethostbyname(socket.gethostname()), port="9999")
