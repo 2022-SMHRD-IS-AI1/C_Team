@@ -9,6 +9,32 @@
     align-items: center;
     justify-content: center;
   } */
+
+ .main-container{
+  margin-top: 50px;
+ } 
+.drive_table{
+  width: 100%;
+  text-align: center;
+  border: black 1px solid;
+  border-collapse: separate;
+  border-radius: 10px;
+  color: black;
+}
+.table_title{
+  font-weight: bold;
+  text-align: center;
+}
+tr{
+  height: 50px;
+  border: #7b7d7c 1px solid;
+}
+
+.col-md-12{
+  margin-bottom:50px
+}
+
+
   .pro_contain .progressTag {
     -webkit-appearance: none;
     -moz-appearance: none;
