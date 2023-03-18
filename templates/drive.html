@@ -75,30 +75,30 @@
       <div class="col-md-12"> 
        <!-- 여기에다가 드라이브 넣으면 됩니다. -->
 
-       <!-- 드라이브 코드 넣는 곳 -->
-
-
-       <div class="loader"></div>
-       <input type="file" class="btnclick" onclick="_showPage();">클릭해봥</input>
-       <div></div>
-       
-
-       <script>//로딩바
-        var loader =  document.querySelector(".loader");
-        var container =  document.querySelector(".container")
-        
-               window.onload =  function () {
-                // if(true){
-                //   loder.style.display = 'bolck';
-                // }else{
-                //   loader.style.display = 'none';
-                // }
-                loader.style.display = 'none'; 
-              };
-        
-        
-              
-              </script>
+       <div>
+        <table class = "drive_table">
+          <tr>
+            <td class="table_title">폴더명</td>
+            <td class="table_title">분류시각</td>
+            <td class="table_title">다운로드</td>
+          </tr>
+          <tr>
+            <td>여기에는 분류된 최상위 폴더</td>
+            <td>분류된 시각 가져오기</td>
+            <td><Button class="drive_button">다운로드</Button></td>
+          </tr>
+          <tr>
+            <td>여기에는 분류된 최상위 폴더</td>
+            <td>분류된 시각 가져오기</td>
+            <td><Button class="drive_button">다운로드</Button></td>
+          </tr>
+          <tr>
+            <td>여기에는 분류된 최상위 폴더</td>
+            <td>분류된 시각 가져오기</td>
+            <td><Button class="drive_button">다운로드</Button></td>
+          </tr>
+        </table>
+       </div>
 
         <!-- 여기에다가 드라이브 넣으면 됩니다. -->
     </div>
