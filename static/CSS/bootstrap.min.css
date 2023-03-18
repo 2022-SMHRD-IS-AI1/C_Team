@@ -8596,7 +8596,7 @@ button.close {
 
 
     .loader {
-        display: block;
+        display: none;
         position: absolute;
         left: 50%;
         top: 50%;

@@ -95,9 +95,9 @@ async def classification(user_id):
       file_topic = [topic_name[i] if x == i else x for x in file_topic]
     print(file_topic)
 
-    # 결과 시각화
-    lda_visualization = gensimvis.prepare(lda_model, corpus, dictionary, sort_topics=False)
-    pyLDAvis.save_html(lda_visualization, 'file_name.html')
+    # # 결과 시각화
+    # lda_visualization = gensimvis.prepare(lda_model, corpus, dictionary, sort_topics=False)
+    # pyLDAvis.save_html(lda_visualization, 'file_name.html')
 
     return file_topic
     # for i in range(5):
