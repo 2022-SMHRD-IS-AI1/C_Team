@@ -64,7 +64,7 @@
             <div class="btn btn-default">Add File</div> 
             <input id="file" multiple="multiple" type="file" name="filename[]" />
           </label>
-            <input class="btn btn-default" type="submit" name="Upload">
+            <input class="btn btn-default" id = "trans" type="submit" name="Upload">
           </form>
           {% endif %}
         </div>
@@ -72,6 +72,28 @@
     </div>
   </div>
 </div>
+
+<div id="loading" style="margin-left: 0px;">
+  <img src="{{ url_for('static', filename='images/spinner.gif') }}">
+</div>
+
+<script>
+
+  $(document).ready(function() {
+  
+  $('#loading').hide();
+  $('#trans').submit(function(){
+      $('#loading').show();
+      return true;
+      });
+  });
+  
+  </script>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+
+
+
 <!-- /.slider -->
 <div class="section-space80"><!-- section space80 -->
   <div class="container">
