@@ -212,8 +212,12 @@ def download():
         # 압축 파일 생성
         zip_path = f"{folder_path}.zip"
         with zipfile.ZipFile(zip_path, 'w') as zip:
-              for dirs, files in os.listdir(folder_path):
-                    zip.write(os.path.join(dirs, files))
+            for dirpath, dirnames, filenames in os.walk(folder_path):
+                for filename in filenames:
+                    filepath = os.path.join(dirpath, filename)
+                    zip.write(filepath)
+            #   for files in os.walk(folder_path):
+            #         zip.write(os.path.join(folder_path, files))
 
         # 압축 파일 다운로드
         return send_file(zip_path, as_attachment=True) # 첨부 파일로 다운로드 as_attachment=True
