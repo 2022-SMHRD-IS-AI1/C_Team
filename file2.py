@@ -34,6 +34,8 @@ def db_update(user_seq, file_list, file_topic):
 
     return result # result(성공여부) 리턴
 
+
+
 async def upload(user_id, file_name, nowtime):
 
     file_path = f'./uploads/{user_id}/{nowtime}/'
