@@ -177,8 +177,10 @@ def price_cancel(): # 메인 페이지
 def drive():
     id = session['user_info'][0]
     file_path = f'./uploads/{id}/'
-    file_list = os.listdir(file_path)
+    # file_list = os.listdir(file_path)
+    file_list = file2.file_list_in_dir(file_path)
     sum_file_size = 0
+    print(file_list)
     for i in range(len(file_list)):
         file_size = os.path.getsize(file_path+file_list[i])
         sum_file_size += file_size

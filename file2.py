@@ -61,6 +61,17 @@ def replace_file(user_seq, file_list, file_topic):
         os.makedirs(file_destination, exist_ok=True)
         os.replace(file_path+file_list[i], file_destination+file_list[i])
         
+def file_list_in_dir(file_path):
+    file_list = []
+    list_dir = os.listdir(file_path)
+    if list_dir:
+        for dir_name in list_dir:
+            dir_file_list = os.listdir(file_path+dir_name)
+            for file_name in dir_file_list:
+                file_list.append(dir_name+'/'+file_name)
+    return file_list
+
+
 
 
 
