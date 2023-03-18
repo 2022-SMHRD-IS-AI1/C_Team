@@ -54,3 +54,23 @@ async def upload(user_id, file_name):
 #     print('파일 생성일' + date)
 
 
+def replace_file(user_seq, file_list, file_topic):
+    for i in range(len(file_list)):
+        file_path = f'./uploads/{user_seq}/'
+        file_destination = f'./uploads/{user_seq}/{file_topic[i]}/'
+        os.makedirs(file_destination, exist_ok=True)
+        os.replace(file_path+file_list[i], file_destination+file_list[i])
+        
+
+
+
+def convert_size(size_bytes):
+    import math
+    if size_bytes == 0:
+        return "0B"
+    size_name = ("B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB")
+    i = int(math.floor(math.log(size_bytes, 1024)))
+    p = math.pow(1024, i)
+    s = round(size_bytes / p, 2)
+    return "%s %s" % (s, size_name[i])
+

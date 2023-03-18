@@ -1,12 +1,8 @@
-from flask import Flask, render_template, request, redirect, url_for, session, flash
-import user
-import socket
-import file2
-import lda_model2
-import os
+from flask import Flask, render_template, request, redirect, url_for, session, flash, send_file
+import socket, os, asyncio, zipfile
 from functools import wraps
-import asyncio
 from tqdm import tqdm
+import user, file2, lda_model2
 
 def async_action(f):
     @wraps(f)
@@ -72,7 +68,8 @@ async def main():
         file_list = os.listdir(f'./uploads/{user_seq}/')
         print(file_list)
         file2.db_update(user_seq, file_list, file_topic)
-        return render_template('main.html') # 메인 페이지로 이동
+        file2.replace_file(user_seq, file_list, file_topic)
+        return redirect(url_for('drive')) # 메인 페이지로 이동
     else: # get 방식일때 
         return render_template('main.html') # 메인 페이지로 이동
 
@@ -178,7 +175,33 @@ def price_cancel(): # 메인 페이지
 # 웹에서 drive 호출 시 실행 함수 
 @app.route('/drive')
 def drive():
+    id = session['user_info'][0]
+    file_path = f'./uploads/{id}/'
+    file_list = os.listdir(file_path)
+    sum_file_size = 0
+    for i in range(len(file_list)):
+        file_size = os.path.getsize(file_path+file_list[i])
+        sum_file_size += file_size
+    convert_file_size = file2.convert_size(sum_file_size)
+    print('File Size:', convert_file_size, 'bytes')
     return render_template('drive.html')
+
+# 파일 압축 다운로드 
+@app.route('/download')
+def download():
+    user_id = session['user_info'][0]
+    # 압축할 폴더 경로
+    folder_path = f'./uploads/{user_id}'
+
+    # 압축 파일 생성
+    zip_path = f"{folder_path}.zip"
+    with zipfile.ZipFile(zip_path, 'w') as zip:
+        for root, dirs, files in os.walk(folder_path):
+            for file in files:
+                zip.write(os.path.join(root, file))
+
+    # 압축 파일 다운로드
+    return send_file(zip_path, as_attachment=True) # 첨부 파일로 다운로드 as_attachment=True
 
 if __name__ == '__main__':
     app.run(host = socket.gethostbyname(socket.gethostname()), port="9999")
