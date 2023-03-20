@@ -80,7 +80,7 @@ def file_list_in_dir(file_path):
                     file_name_list = os.listdir(file_path+time_dir+'/'+file_dir)
                     # print('file_list :',file_name_list)
                     for file_name in file_name_list:
-                        print('file_list :',file_path+time_dir+'/'+file_dir+'/'+file_name)
+                        # print('file_list :',file_path+time_dir+'/'+file_dir+'/'+file_name)
                         file_list.append(file_path+time_dir+'/'+file_dir+'/'+file_name)
     except Exception as e:
         print(e)

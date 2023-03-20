@@ -66,7 +66,7 @@ async def main():
         file_path = await file2.upload(user_seq, file_list, nowtime) # 파일 업로드
         file_topic = await lda_model2.classification(user_seq, file_path) # 업로드된 파일 모델 분류후 file_topic 변수에 저장
         file_list = os.listdir(file_path)
-        print('file_list :',file_list)
+        # print('file_list :',file_list)
         file2.db_update(user_seq, file_list, file_topic)
         file2.replace_file(file_path, file_list, file_topic)
         return redirect(url_for('drive')) # 메인 페이지로 이동
@@ -180,7 +180,7 @@ def drive():
     # file_list = os.listdir(file_path)
     file_list = file2.file_list_in_dir(file_path)
     sum_file_size = 0
-    print(file_list)
+    # print(file_list)
     if len(file_list)>0:
         for i in range(len(file_list)):
             file_size = os.path.getsize(file_list[i])
@@ -200,30 +200,41 @@ def download():
     if request.method == 'POST':
         id = session['user_info'][0]
         i = int(request.form['download'])
-        print(i)
-        print(type(i))
         # 압축할 폴더 경로
         file_path = f'./uploads/{id}/'
         upload_time_list = os.listdir(file_path)
-        print('upload_time_list :',upload_time_list)
-        folder_path = f'./uploads/{id}/{upload_time_list[i]}/'
-        print('folder_path :',folder_path)
+        
+        base_path = f'\\uploads\\{id}\\'
+        trg_zip_name = upload_time_list[i] + ".zip"
 
-        # 압축 파일 생성
-        zip_path = f"{folder_path}.zip"
-        with zipfile.ZipFile(zip_path, 'w') as zip:
-            for dirpath, dirnames, filenames in os.walk(folder_path):
-                for filename in filenames:
-                    filepath = os.path.join(dirpath, filename)
-                    zip.write(filepath)
-            #   for root, dirs, files in os.walk(folder_path):
-            #       for file in files:
-            #           zip.write(os.path.join(root, file))
+        cur_path = os.getcwd()
 
-        # 압축 파일 다운로드
-        return send_file(zip_path, as_attachment=True) # 첨부 파일로 다운로드 as_attachment=True
+        # 현재 디렉토리 경로 변경
+        file_path = os.chdir(cur_path+base_path)
+        
+        try:
+            with zipfile.ZipFile(trg_zip_name, "w", zipfile.ZIP_DEFLATED) as f:
+                for base_dir, dirs, files in os.walk(upload_time_list[i]):
+                    for file in files:
+                        # 상대 경로를 구한다.
+                        f.write(os.path.join(os.path.relpath(base_dir, file_path), file))
+        finally:
+            # 원래 디렉토리 위치로 변경
+            os.chdir(cur_path)
+            org_file = cur_path+base_path+trg_zip_name
+            replace_file_path = cur_path+f'\\downloads\\{id}\\'
+            replaced_file = replace_file_path+trg_zip_name
+            # print('org_file',org_file)
+            # print('replaced_file',replaced_file)
+            os.makedirs(replace_file_path, exist_ok=True)
+            os.replace(org_file, replaced_file)
+            f.close()
+
+        # # 압축 파일 다운로드
+        return send_file(replaced_file, as_attachment=True) # 첨부 파일로 다운로드 as_attachment=True
     else:
         return render_template('drive.html')
+    
 
 if __name__ == '__main__':
     app.run(host = socket.gethostbyname(socket.gethostname()), port="9999")
