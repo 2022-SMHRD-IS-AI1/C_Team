@@ -64,7 +64,7 @@
             <div class="btn btn-default">Add File</div> 
             <input id="file" multiple="multiple" type="file" name="filename[]" />
           </label>
-            <input class="btn btn-default"  type="submit"  value="Submit">
+            <input id = "sub" class="btn btn-default"  type="submit"  value="Submit">
           </form>
           {% endif %}
         </div>
@@ -76,6 +76,8 @@
 <div id="loading" style="margin-left: 0px;">
   <img src="{{ url_for('static', filename='images/spinner.gif') }}">
 </div>
+
+
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 
 <script>
@@ -88,6 +90,22 @@
       return true;
       });
   });
+  
+  </script>
+
+
+<script>
+
+  var fileCheak = document.getElementById("file")
+  var sub = document.getElementById("sub")
+  
+sub.addEventListener('click', () => {
+  if(!fileCheak.value){
+    alert("파일을 첨부해 주세요");  
+    event.preventDefault();
+   
+  }
+  } );
   
   </script>
 
