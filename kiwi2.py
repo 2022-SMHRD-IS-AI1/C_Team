@@ -1,10 +1,10 @@
-import os
 import docx2txt
 from kiwipiepy import Kiwi
-# from kiwipiepy.utils import Stopwords
-
-kiwi = Kiwi(load_default_dict=True)
+# Kiwi 형태소 분석기 객체 생성
+kiwi = Kiwi(load_default_dict=True) 
+# userDict 로드 
 kiwi.load_user_dictionary('userDict.txt')
+
 stopwords = ({'개발', '연구', '향상', '전략', '과정', '문제', '정의', '배포', '지원', '결과',
                '솔루션', '테스트', '시장', '진출', '높이기', '반영', '감시', '목적', '대상', '기능', '기술', '단계',
                  '방법', '활용', '환경', '사용', '라이브러리', '사용자', '이해', '적용', '성과', '개선', '개월', '계획',
@@ -21,36 +21,23 @@ stopwords = ({'개발', '연구', '향상', '전략', '과정', '문제', '정�
                                '중요한', '매우', '것이', '있고', '하도록', '이루기', '로', '여러', '되며', '-', '.', ',',
                                 '따른', '두고', '담고', '있도록', '모으고', '모아', '담아', '두고', '의도한', '해당', '형식', '경우',
                                  '추가', '데이터', '모델', '분석', '수', '시스템', '기획', '수집', '경험', '객체', '인식', '안'})
-# stopwords = ({'개발', '기술', '솔루션', '데이터', '사용자', '사업', '모델', '사용', '개월', '기능', '수집', '분석', '방법', '기반', '개선',
-#               '제공', '목표', '사용', '시스템', '등', '수', '처리', '평가', '성능', '전략', '인식', '기획', '객체',
-#               '현실', '증강', '다양', '경험','러닝', '운영', '이용', '계획','관리','배포','고려','검증','테스트','적용','소프트웨어',
-#               '것','목적','다음','안','활용','업무','기업','비지니스',})
 
-# stopwords = Stopwords(filename='stopwords.txt')
-# for i in stop_words:
-#     stopwords.add(i)
-# stopwords.save('stopwords.txt')
+# Kiwi 분석기 초기화
 kiwi.prepare()
-
-# file_list = os.listdir('./new_folder')
-
 def tokenize(file_name, file_path):
-    doc = ''
-    # token = []
+    doc = ''  
     result = ''
-
-    #형용사 = ('VA')
-    #용언품사 = ('VV', 'VA')
-    명사 = ('NN')
-    # print(file_path+file_name)
-
+    명사 = ('NN')    
+    # 경로에 있는 docx 파일 txt로 변환 후 변수 doc 저장
     doc = docx2txt.process(file_path+file_name)
+    # doc 문자열을 형태소분석해 토큰화 후 변수 kiwi_tokenize 저장
     kiwi_tokenize = kiwi.tokenize(doc)
-
     for i in kiwi_tokenize:
+        # 형태소 분석 결과에서 명사추출
         if i[1].startswith(명사):
+            # 불용어 처리 
             if i[0] not in stopwords:
-                # token.append(i[0])
+                # 변수에 저장
                 result += i[0] + ' '
   
     return result
