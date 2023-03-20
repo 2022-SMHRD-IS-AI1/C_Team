@@ -145,7 +145,7 @@ def mypage(): # 메인 페이지
             return redirect(url_for('mypage'))
     
     else:
-        return render_template('mypage.html', user_id = session['user_info'][0], price_type = session['user_info'][1], user_expiration = session['user_info'][3])
+        return render_template('mypage.html', user_id = session['user_info'][1], price_type = session['user_info'][2], user_expiration = session['user_info'][4])
 
 # 구독 취소
 @app.route('/price_cancel', methods = ['GET','POST'])
