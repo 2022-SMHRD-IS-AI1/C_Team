@@ -52,7 +52,7 @@ async def classification(user_id, file_path):
     # LDA 모델 생성
     lda_model = LdaModel(corpus=corpus,
                         id2word=dictionary,
-                        num_topics=10, # 주제 개수 설정
+                        num_topics=5, # 주제 개수 설정
                         passes=20, # 알고리즘 반복 횟수 설정
                         alpha='auto',
                         eta="auto",
@@ -96,28 +96,11 @@ async def classification(user_id, file_path):
     print(file_topic)
 
     # 결과 시각화
-    # lda_visualization = gensimvis.prepare(lda_model, corpus, dictionary, sort_topics=False)
-    # pyLDAvis.save_html(lda_visualization, 'file_name.html')
+    lda_visualization = gensimvis.prepare(lda_model, corpus, dictionary, sort_topics=False)
+    pyLDAvis.save_html(lda_visualization, 'file_name.html')
 
     return file_topic
-    # for i in range(5):
-    #     print('./new_folder/'+doc_list[i])
-    #     name, extention = os.path.splitext(doc_list[i])
-    #     path = os.getcwd()
-    #     date = time.ctime(os.path.getmtime(path))
-    #     print('파일명' +name)
-    #     print('파일경로' +path)
-    #     print('파일확장자' + extention)
-    #     print('파일 생성일' + date)
 
-    
-
-    # for i, t in range(10):
-    #   topic.append(lda_model.show_topics(num_topics=10, num_words=1, formatted=False)[i][1][0][0])
-    #   print(doc_topic_dists[i][np.argmax(t)])
-
-
-    # print(index, topic)
 
 
 # classification('admin')
