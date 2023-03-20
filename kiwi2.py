@@ -37,7 +37,7 @@ def tokenize(file_name, file_path):
     #형용사 = ('VA')
     #용언품사 = ('VV', 'VA')
     명사 = ('NN')
-    print(file_path+file_name)
+    # print(file_path+file_name)
 
     doc = docx2txt.process(file_path+file_name)
     kiwi_tokenize = kiwi.tokenize(doc)

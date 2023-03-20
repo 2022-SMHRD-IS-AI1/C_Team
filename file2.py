@@ -35,7 +35,7 @@ def db_update(user_seq, file_list, file_topic):
     return result # result(성공여부) 리턴
 
 
-
+# 서버에 파일 업로드
 async def upload(user_id, file_name, nowtime):
 
     file_path = f'./uploads/{user_id}/{nowtime}/'
@@ -45,19 +45,7 @@ async def upload(user_id, file_name, nowtime):
         f.save(file_path + f.filename)
     return file_path
     
-# file_list = os.listdir('./new_folder')
-
-# for i in range(5):
-#    # print('./new_folder/'+file_list[i])
-#     name, extention = os.path.splitext(file_list[i])
-#     path = os.getcwd()
-#     date = time.ctime(os.path.getmtime(path))
-#     print('파일명' +name)
-#     print('파일경로' +path)
-#     print('파일확장자' + extention)
-#     print('파일 생성일' + date)
-
-
+# 업로드된 파일 토픽별 폴더로 이동
 def replace_file(file_path, file_list, file_topic):
     for i in range(len(file_list)):
         file_destination = f'{file_path}{file_topic[i]}/'
@@ -67,27 +55,24 @@ def replace_file(file_path, file_list, file_topic):
         os.makedirs(file_destination, exist_ok=True)
         os.replace(file_path+file_list[i], file_destination+file_list[i])
         
+# 모든 하위 폴더의 파일 리스트
 def file_list_in_dir(file_path):
     file_list = []
     try:
         time_dir_list = os.listdir(file_path)
         if time_dir_list:
             for time_dir in time_dir_list:
-                # print('time_dir :',time_dir)
                 file_dir_list = os.listdir(file_path+time_dir)
                 for file_dir in file_dir_list:
-                    # print('file_dir :',file_dir)
                     file_name_list = os.listdir(file_path+time_dir+'/'+file_dir)
-                    # print('file_list :',file_name_list)
                     for file_name in file_name_list:
-                        # print('file_list :',file_path+time_dir+'/'+file_dir+'/'+file_name)
                         file_list.append(file_path+time_dir+'/'+file_dir+'/'+file_name)
     except Exception as e:
         print(e)
     finally:
         return file_list
 
-
+# 파일 용량 단위 변경
 def convert_size(size_bytes):
     import math
     if size_bytes == 0:

@@ -84,7 +84,7 @@ def price_cancel(id):
         sql = "UPDATE c_user SET price_type = 'Basic' WHERE user_mail = :1"
         cursor.execute(sql, [id]) # sql문 실행
         con.commit() # 커밋
-        sql = "SELECT user_mail, price_type, user_joinprice, user_expiration FROM c_user WHERE user_mail = :1"
+        sql = "SELECT user_seq, user_mail, price_type, user_joinprice, user_expiration FROM c_user WHERE user_mail = :1"
         cursor.execute(sql, [id]) # sql문 실행
         data = cursor.fetchone() # data에 sql문 결과(1행) 저장
         if data:

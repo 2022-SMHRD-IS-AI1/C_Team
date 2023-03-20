@@ -1,9 +1,9 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash, send_file
 import socket, os, asyncio, zipfile, time
 from functools import wraps
-from tqdm import tqdm
 import user, file2, lda_model2
 
+# 비동기처리
 def async_action(f):
     @wraps(f)
     def wrapped(*args, **kwargs):
@@ -12,42 +12,6 @@ def async_action(f):
 
 app = Flask(__name__)
 app.secret_key = 'qwer1234'
-
-# 웹에서 requiry.html 호출 시 실행 함수 
-@app.route('/requiry', methods = ['GET','POST'])
-def requiry():
-    return render_template('requiry.html')
-
-# 웹에서 pay 호출 시 실행 함수 
-@app.route('/pay', methods = ['GET','POST'])
-def pay():
-    try:
-        return render_template('pay.html')
-    except:
-        print('pay 오류발생!')
-
-# 웹에서 price 호출 시 실행 함수 
-@app.route('/price', methods = ['GET','POST'])
-def price():
-    try:
-        return render_template('Price.html')
-    except:
-        print('price 오류발생!')
-
-
-
-# async def upload():
-#     file_list = request.files.getlist("filename[]") # 업로드된 파일을 리스트 형식으로 변수에 저장
-#     user_seq = session['user_info'][0] # 세션에 저장된 c_user 테이블의 user_seq 컬럼에 접근
-
-#     await file2.upload(user_seq, file_list)
-#     file_topic = await lda_model2.classification(user_seq)
-#     for i in range(len(file_topic)):
-#         file_path = f'./uploads/{user_seq}/{file_topic[i]}/'
-#         file_name, file_ext = os.path.splitext(file_list[i])
-#         await file2.db_update(user_seq, file_path, file_name[i], file_ext)
-
-
 
 # 기본 시작페이지    
 @app.route('/')
@@ -62,13 +26,13 @@ async def main():
         # request.files
         file_list = request.files.getlist("filename[]") # 업로드된 파일을 리스트 형식으로 변수에 저장
         user_seq = session['user_info'][0] # 세션에 저장된 c_user 테이블의 user_seq 컬럼에 접근
-        nowtime = time.strftime('%Y-%m-%d_%H_%M_%S')
+        nowtime = time.strftime('%Y-%m-%d_%H_%M_%S') # 현재시각
         file_path = await file2.upload(user_seq, file_list, nowtime) # 파일 업로드
         file_topic = await lda_model2.classification(user_seq, file_path) # 업로드된 파일 모델 분류후 file_topic 변수에 저장
-        file_list = os.listdir(file_path)
+        file_list = os.listdir(file_path) # 업로드된 파일 목록 가져오기
         # print('file_list :',file_list)
-        file2.db_update(user_seq, file_list, file_topic)
-        file2.replace_file(file_path, file_list, file_topic)
+        file2.db_update(user_seq, file_list, file_topic) # db에 데이터 업데이트
+        file2.replace_file(file_path, file_list, file_topic) # 분류할 폴더별로 파일 이동
         return redirect(url_for('drive')) # 메인 페이지로 이동
     else: # get 방식일때 
         return render_template('main.html') # 메인 페이지로 이동
@@ -124,7 +88,8 @@ def join(): # 회원가입 함수
 @app.route('/mypage', methods = ['GET','POST'])
 def mypage(): # 메인 페이지
     if request.method == 'POST':
-        id = request.form['id']
+        # 회원가입시 입력한 정보 가져오기
+        id = request.form['id'] 
         pw = request.form['pw']
         pw_c = request.form['pw_c']
         result = False
@@ -151,21 +116,21 @@ def mypage(): # 메인 페이지
 @app.route('/price_cancel', methods = ['GET','POST'])
 def price_cancel(): # 메인 페이지
     if request.method == 'POST':
-        id = session['user_info'][0]
+        id = session['user_info'][1] # 세션에서 사용자 id 가져오기
         result = user.price_cancel(id)
         print('result :', result)
 
         if result: # 정보수정 성공
             print('구독을 취소하였습니다.')
             flash("구독을 취소하였습니다.")
-            # return render_template('mypage.html', user_id = session['user_info'][0])
+            # return render_template('mypage.html', user_id = session['user_info'][1])
             session['user_info'] = result # session 저장
             return redirect(url_for('price_cancel'))
         
         else: # 정보수정 실패
             print('구독취소에 실패하였습니다')
             flash("구독취소에 실패하였습니다.")
-            # return render_template('mypage.html', user_id = session['user_info'][0]) # 로그인 페이지로 이동
+            # return render_template('mypage.html', user_id = session['user_info'][1]) # 로그인 페이지로 이동
             return redirect(url_for('price_cancel'))
     
     else:
@@ -175,20 +140,19 @@ def price_cancel(): # 메인 페이지
 # 웹에서 drive 호출 시 실행 함수 
 @app.route('/drive')
 def drive():
-    id = session['user_info'][0]
-    file_path = f'./uploads/{id}/'
-    # file_list = os.listdir(file_path)
-    file_list = file2.file_list_in_dir(file_path)
+    id = session['user_info'][0] # c_user 테이블의 user_seq 컬럼 데이터 가져오기
+    file_path = f'./uploads/{id}/' # 파일 업로드된 폴더
+    file_list = file2.file_list_in_dir(file_path) # 파일 리스트 데이터 가져오기
     sum_file_size = 0
-    # print(file_list)
+    # 업로드 폴더 안의 모든 파일 용량
     if len(file_list)>0:
         for i in range(len(file_list)):
             file_size = os.path.getsize(file_list[i])
             sum_file_size += file_size
-    convert_file_size = file2.convert_size(sum_file_size)
-    print('File Size:', convert_file_size, 'bytes')
+    convert_file_size = file2.convert_size(sum_file_size) # 파일 용량 단위 변환하기
+    print('File Size:', convert_file_size, 'bytes') # 파일 용량 확인
     try:
-        upload_time_list = os.listdir(file_path)
+        upload_time_list = os.listdir(file_path) # 업로드 시각 폴더 가져오기
     except Exception as e:
         print(e)
         upload_time_list = 0
@@ -198,8 +162,8 @@ def drive():
 @app.route('/download', methods = ['GET','POST'])
 def download():
     if request.method == 'POST':
-        id = session['user_info'][0]
-        i = int(request.form['download'])
+        id = session['user_info'][0] # c_user 테이블의 user_seq 컬럼 데이터 가져오기
+        i = int(request.form['download']) # 압축 다운로드할 파일 인덱스번호
         # 압축할 폴더 경로
         file_path = f'./uploads/{id}/'
         upload_time_list = os.listdir(file_path)
@@ -216,25 +180,45 @@ def download():
             with zipfile.ZipFile(trg_zip_name, "w", zipfile.ZIP_DEFLATED) as f:
                 for base_dir, dirs, files in os.walk(upload_time_list[i]):
                     for file in files:
-                        # 상대 경로를 구한다.
+                        # 상대 경로로 폴더명 지정
                         f.write(os.path.join(os.path.relpath(base_dir, file_path), file))
         finally:
             # 원래 디렉토리 위치로 변경
             os.chdir(cur_path)
+
+            # 압축 파일 downloads 폴더로 이동
             org_file = cur_path+base_path+trg_zip_name
             replace_file_path = cur_path+f'\\downloads\\{id}\\'
             replaced_file = replace_file_path+trg_zip_name
-            # print('org_file',org_file)
-            # print('replaced_file',replaced_file)
             os.makedirs(replace_file_path, exist_ok=True)
             os.replace(org_file, replaced_file)
             f.close()
 
-        # # 압축 파일 다운로드
+        # 압축 파일 다운로드
         return send_file(replaced_file, as_attachment=True) # 첨부 파일로 다운로드 as_attachment=True
     else:
         return render_template('drive.html')
-    
+
+# 웹에서 requiry.html 호출 시 실행 함수 
+@app.route('/requiry', methods = ['GET','POST'])
+def requiry():
+    return render_template('requiry.html')
+
+# 웹에서 pay 호출 시 실행 함수 
+@app.route('/pay', methods = ['GET','POST'])
+def pay():
+    try:
+        return render_template('pay.html')
+    except:
+        print('pay 오류발생!')
+
+# 웹에서 price 호출 시 실행 함수 
+@app.route('/price', methods = ['GET','POST'])
+def price():
+    try:
+        return render_template('Price.html')
+    except:
+        print('price 오류발생!')    
 
 if __name__ == '__main__':
     app.run(host = socket.gethostbyname(socket.gethostname()), port="9999")
