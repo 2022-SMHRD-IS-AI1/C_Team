@@ -52,7 +52,8 @@ async def classification(user_id, file_path):
     # LDA 모델 생성
     lda_model = LdaModel(corpus=corpus,
                         id2word=dictionary,
-                        num_topics=8, # 주제 개수 설정
+                        random_state=1,
+                        num_topics=10, # 주제 개수 설정
                         passes=20, # 알고리즘 반복 횟수 설정
                         alpha='auto',
                         eta="auto",

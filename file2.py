@@ -50,8 +50,8 @@ def replace_file(file_path, file_list, file_topic):
     for i in range(len(file_list)):
         file_destination = f'{file_path}{file_topic[i]}/'
 
-        print('file_path :',file_path)
-        print('file_destination :',file_destination)
+        # print('file_path :',file_path)
+        # print('file_destination :',file_destination)
         os.makedirs(file_destination, exist_ok=True)
         os.replace(file_path+file_list[i], file_destination+file_list[i])
         
