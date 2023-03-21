@@ -135,6 +135,7 @@ def price_cancel(): # 메인 페이지
 @app.route('/drive')
 def drive():
     id = session['user_info'][0] # c_user 테이블의 user_seq 컬럼 데이터 가져오기
+    user_id = session['user_info'][1] # 드라이브화면의 사용자 아이디 표시하기 위해 가져옴
     file_path = f'./uploads/{id}/' # 파일 업로드된 폴더
     file_list = file.file_list_in_dir(file_path) # 파일 리스트 데이터 가져오기
     sum_file_size = 0
@@ -151,7 +152,7 @@ def drive():
     except Exception as e:
         print(e)
         upload_time_list = 0
-    return render_template('drive.html',size = convert_file_size, file_list = file_list, upload_time_list = upload_time_list)
+    return render_template('drive.html',size = convert_file_size, file_list = file_list, upload_time_list = upload_time_list, user_id = user_id)
 
 # 파일 압축 다운로드 
 @app.route('/download', methods = ['GET','POST'])
