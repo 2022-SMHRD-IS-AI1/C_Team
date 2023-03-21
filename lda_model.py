@@ -1,8 +1,6 @@
 import os
 import re
-from pprint import pprint
 from tqdm import tqdm
-
 from gensim import corpora
 from gensim.models import LdaModel
 import kiwi
@@ -20,7 +18,6 @@ def preprocess(text):
     text = re.sub(r'[^\w\s]', '', text)
     # 불용어 제거
     text = ' '.join([word for word in text.split()])
-
     return text
 
 
@@ -59,17 +56,6 @@ def classification(file_path):
                         iterations=200,
                         eval_every=None)
 
-    # 각 문서별로 주제 분포 추정
-    # doc_topic_dists = lda_model[corpus]
-
-    # 추정된 주제 별로 가장 높은 비중의 단어 10개씩 출력
-    # pprint(lda_model.show_topics(num_topics=10, num_words=5, formatted=False))
-
-    # for i, topic_list in enumerate(lda_model[corpus]):
-    #     if i==50:
-    #         break
-    #     print(doc_list[i],'문서의 topic 비율은',topic_list)
-
     # 각 주제명 가져오기
     topic_name = []
     for topics in lda_model.show_topics(num_topics=num_topics, num_words=1, formatted=False):
@@ -83,24 +69,14 @@ def classification(file_path):
         for b in a:
           main_topic.append(b[0])
           topic_per.append(b[1])
-        file_topic.append(main_topic[np.argmax(topic_per)])
-          
-    # for i in file_topic:
-    #   print(i)
-    print(topic_name)
-    print(file_topic)
+        file_topic.append(main_topic[np.argmax(topic_per)])         
 
     # 파일별 주제 이름 변경하기
     for i in range(len(topic_name)):
       file_topic = [topic_name[i] if x == i else x for x in file_topic]
-    print(file_topic)
 
     # 결과 시각화
     lda_visualization = gensimvis.prepare(lda_model, corpus, dictionary, sort_topics=False)
     pyLDAvis.save_html(lda_visualization, 'file_name.html')
 
     return file_topic
-
-
-
-# classification('admin')
