@@ -19,40 +19,42 @@ def db_update(user_seq, file_list, file_topic):
         for i in tqdm(range(len(file_list))):
             file_path = f'./uploads/{user_seq}/{file_topic[i]}/' # 파일 경로
             file_name, file_ext = os.path.splitext(file_list[i]) # 파일 이름, 확장자 분리
-            sql = "INSERT INTO file_info(user_seq, file_path, file_name, file_ext, file_upload) VALUES(:1, :2, :3, :4, SYSDATE)"
+            sql = """INSERT INTO file_info(user_seq, file_path, file_name, file_ext, file_upload)
+                     VALUES(:1, :2, :3, :4, SYSDATE)"""
             cursor.execute(sql, [user_seq, file_path, file_name, file_ext]) # sql문 실행
         con.commit() # 커밋
         result = True # result에 성공여부 초기화 (True : 성공)
-
     except Exception as e: # 예외 처리
         print(e) # 예외 메시지 출력
         result = False # result에 성공여부 초기화 (False : 실패)
-
     finally: # 예외 여부와 관계없이 실행
         cursor.close() # cursor 객체 닫기
         con.close() # db 연결 닫기
-
     return result # result(성공여부) 리턴
 
 
 # 서버에 파일 업로드
 def upload(user_id, file_name, nowtime):
-
-    file_path = f'./uploads/{user_id}/{nowtime}/' # 저장 경로
-    os.makedirs(file_path, exist_ok=True) # 폴더 생성(폴더가 있으면 생성하지 않음)
-
+    # 저장 경로
+    file_path = f'./uploads/{user_id}/{nowtime}/'
+    # 폴더 생성(폴더가 있으면 생성하지 않음)
+    os.makedirs(file_path, exist_ok=True)
     for f in file_name:
         f.save(file_path + f.filename)
     return file_path
     
+
 # 업로드된 파일 주제별로 폴더에 이동
 def replace_file(file_path, file_list, file_topic):
     for i in range(len(file_list)):
         file_destination = f'{file_path}{file_topic[i]}/' # 이동할 경로
-
-        os.makedirs(file_destination, exist_ok=True) # 폴더 생성(폴더가 있으면 생성하지 않음)
-        os.replace(file_path+file_list[i], file_destination+file_list[i]) # 지정된 경로로 파일 이동
+        # 폴더 생성(폴더가 있으면 생성하지 않음)
+        os.makedirs(file_destination, exist_ok=True) 
+        # 지정된 경로로 파일 이동
+        os.replace(file_path+file_list[i], file_destination+file_list[i]) 
         
+
+
 # 모든 하위 폴더의 파일 리스트
 def file_list_in_dir(file_path):
     file_list = []

@@ -15,9 +15,10 @@ def default():
 @app.route('/main', methods = ['GET','POST']) # get, post
 def main():
     if request.method == 'POST': # post 방식일때
-        # request.files
-        file_list = request.files.getlist("filename[]") # 업로드된 파일을 리스트 형식으로 변수에 저장
-        user_seq = session['user_info'][0] # 세션에 저장된 c_user 테이블의 user_seq 컬럼에 접근
+        # 업로드된 파일을 리스트 형식으로 변수에 저장
+        file_list = request.files.getlist("filename[]") 
+        # 세션에 저장된 c_user 테이블의 user_seq 컬럼에 접근
+        user_seq = session['user_info'][0] 
         nowtime = time.strftime('%Y-%m-%d_%H_%M_%S') # 현재시각
         # 파일 업로드
         file_path = file.upload(user_seq, file_list, nowtime)
@@ -134,9 +135,9 @@ def price_cancel(): # 메인 페이지
 # 웹에서 drive 호출 시 실행 함수 
 @app.route('/drive')
 def drive():
-    id = session['user_info'][0] # c_user 테이블의 user_seq 컬럼 데이터 가져오기
+    user_seq = session['user_info'][0] # c_user 테이블의 user_seq 컬럼 데이터 가져오기
     user_id = session['user_info'][1] # 드라이브화면의 사용자 아이디 표시하기 위해 가져옴
-    file_path = f'./uploads/{id}/' # 파일 업로드된 폴더
+    file_path = f'./uploads/{user_seq}/' # 파일 업로드된 폴더
     file_list = file.file_list_in_dir(file_path) # 파일 리스트 데이터 가져오기
     sum_file_size = 0
     # 업로드 폴더 안의 모든 파일 크기
@@ -152,19 +153,19 @@ def drive():
     except Exception as e:
         print(e)
         upload_time_list = 0
-    return render_template('drive.html',size = convert_file_size, file_list = file_list, upload_time_list = upload_time_list, user_id = user_id)
+    return render_template('drive.html',size=convert_file_size,file_list=file_list,upload_time_list=upload_time_list,user_id=user_id)
 
 # 파일 압축 다운로드 
 @app.route('/download', methods = ['GET','POST'])
 def download():
     if request.method == 'POST':
-        id = session['user_info'][0] # c_user 테이블의 user_seq 컬럼 데이터 가져오기
+        user_seq = session['user_info'][0] # c_user 테이블의 user_seq 컬럼 데이터 가져오기
         i = int(request.form['download']) # 압축 다운로드할 파일 인덱스번호
         # 압축할 폴더 경로
-        file_path = f'./uploads/{id}/'
+        file_path = f'./uploads/{user_seq}/'
         upload_time_list = os.listdir(file_path)
         
-        base_path = f'\\uploads\\{id}\\'
+        base_path = f'\\uploads\\{user_seq}\\'
         trg_zip_name = upload_time_list[i] + ".zip"
 
         cur_path = os.getcwd()
@@ -185,7 +186,7 @@ def download():
 
             # 압축 파일 downloads 폴더로 이동
             org_file = cur_path+base_path+trg_zip_name
-            replace_file_path = cur_path+f'\\downloads\\{id}\\'
+            replace_file_path = cur_path+f'\\downloads\\{user_seq}\\'
             replaced_file = replace_file_path+trg_zip_name
             os.makedirs(replace_file_path, exist_ok=True)
             os.replace(org_file, replaced_file)

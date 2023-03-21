@@ -39,5 +39,4 @@ def tokenize(file_name, file_path):
             if i[0] not in stopwords:
                 # 변수에 저장
                 result += i[0] + ' '
-  
     return result
